@@ -8,3 +8,7 @@ class ProductoTecnologico:
 
     def __str__(self):
         return f"Nombre: {self.nombre}\nDescripcion: {self.descripcion}\nPrecio: {self.precio}\nStock: {self.stock} \nMarca: {self.marca}"
+    
+
+    
+
