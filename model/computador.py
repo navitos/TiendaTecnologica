@@ -59,4 +59,7 @@ class Computador(ProductoTecnologico):
     
     def set_nombre(self, nombre):
         self.nombre = nombre
+
+    def calcularPrecio(self):
+        return self.precio + self.precio * 0.25
     

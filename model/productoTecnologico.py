@@ -47,6 +47,11 @@ class ProductoTecnologico(ABC):
     def set_stock(self, stock):
         pass
 
+    @abstractmethod
+    def calcularPrecio(self):
+        pass
+
+
 
     
  
