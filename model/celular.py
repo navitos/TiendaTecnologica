@@ -35,6 +35,8 @@ class Celular(ProductoTecnologico):
         self.marca = marca
         
     def set_capacidad(self, capacidad): #metodo para establecer la capacidad del celular, que recibe un double y lo almacena en el atributo capacidad
+        if capacidad <= 0 :
+            raise ValueError("La capacidad de almacenamiento no puede ser menor o igual a 0")
         self.capacidad = capacidad
         
     def set_fechaLanzamiento(self, fechaLanzamiento): #metodo para establecer la fecha de lanzamiento del celular, que recibe una fecha y la almacena en el atributo fechaLanzamiento
@@ -44,9 +46,13 @@ class Celular(ProductoTecnologico):
         self.descripcion = descripcion
         
     def set_precio(self, precio): #metodo para establecer el precio del celular, que recibe un double y lo almacena en el atributo precio
+        if precio < 0:
+            raise ValueError("el precio no puede ser negativo")
         self.precio = precio
         
     def set_stock(self, stock): #metodo para establecer el stock del celular, que recibe un entero y lo almacena en el atributo stock
+        if stock < 0:
+            raise ValueError("no puede haber cantidades negativas en el stock")
         self.stock = stock
     
     def set_nombre(self, nombre): #metodo para establecer el nombre del celular, que recibe una cadena de caracteres y la almacena en el atributo nombre

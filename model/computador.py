@@ -40,6 +40,8 @@ class Computador(ProductoTecnologico):
         self.procesador = grafica
     
     def set_ram(self, ram): #metodo para establecer la memoria del computador, que recibe un double y lo almacena en el atributo memoria
+        if ram <= 0:
+            raise ValueError("La ram no puede ser menor o igual a 0")
         self.memoria = ram
     
     def set_monitor(self, monitor): #metodo para establecer el monitor del computador, que recibe un objeto de la clase monitor y lo almacena en el atributo monitor
@@ -52,9 +54,13 @@ class Computador(ProductoTecnologico):
         self.descripcion = descripcion
 
     def set_precio(self, precio): #metodo para establecer el precio del computador, que recibe un entero y lo almacena en el atributo precio
+        if precio <= 0:
+            raise ValueError("el precio no puede ser negativo o igual a 0")
         self.precio = precio
 
     def set_stock(self, stock): #metodo para establecer el stock del computador, que recibe un entero y lo almacena en el atributo stock
+        if stock < 0:
+            raise ValueError("no puede haber valores negativos en la cantidad de inventario 'stock' ")
         self.stock = stock
     
     def set_nombre(self, nombre): #metodo para establecer el nombre del computador, que recibe una cadena de caracteres y la almacena en el atributo nombre
