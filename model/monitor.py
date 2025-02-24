@@ -2,9 +2,9 @@
 #Clase que representa un monitor, que tiene una marca, tamanio y frecuencia
 class Monitor:
     def __init__(self, marca, tamanio, frecuencia): #constructor de la clase monitor, que recibe una marca, tamanio y frecuencia y los almacena en atributos para su posterior uso
-        self.marca = marca
-        self.tamanio = tamanio
-        self.frecuencia = frecuencia
+        self.set_marca(marca)
+        self.set_tamanio(tamanio)
+        self.set_frecuencia(frecuencia)
 
     def __str__(self):  #metodo para mostrar el monitor en pantalla, que devuelve una cadena de caracteres que representa el monitor y sus atributos
         return f"Marca: {self.marca} Tamanio: {self.tamanio} Frecuencia: {self.frecuencia}"

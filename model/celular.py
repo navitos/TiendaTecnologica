@@ -4,8 +4,8 @@ from model.productoTecnologico import ProductoTecnologico
 class Celular(ProductoTecnologico):
     def __init__(self, nombre, descripcion, precio, stock, marca, capacidad, fechaLanzamiento): #metodo para crear un celular, que recibe un nombre, descripcion, precio, stock, marca, capacidad y fechaLanzamiento y los almacena en atributos instanciando un celular
         super().__init__(nombre, descripcion, precio, stock, marca)
-        self.capacidad = capacidad
-        self.fechaLanzamiento = fechaLanzamiento
+        self.set_capacidad(capacidad)
+        self.set_fechaLanzamiento(fechaLanzamiento)
 
     def __str__(self): #metodo para mostrar el celular en pantalla, que devuelve una cadena de caracteres que representa el celular y sus atributos
         return f"Nombre: {self.nombre}\nDescripcion: {self.descripcion}\nPrecio: {self.precio}\nStock: {self.stock} \nMarca: {self.marca}\nCapacidad: {self.capacidad}\nFecha de lanzamiento: {self.fechaLanzamiento}\n"

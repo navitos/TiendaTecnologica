@@ -5,9 +5,9 @@ from model.monitor import Monitor
 class Computador(ProductoTecnologico):
     def __init__(self, nombre, descripcion, precio, stock, marca, grafica, ram, monitor): #metodo para crear un computador, que recibe un nombre, descripcion, precio, stock, marca, grafica, ram y monitor y los almacena en atributos instanciando un computador
         super().__init__(nombre, descripcion, precio, stock, marca)
-        self.procesador = grafica
-        self.memoria = ram
-        self.monitor = monitor
+        self.set_grafica(grafica)
+        self.set_ram(ram)
+        self.set_monitor(monitor)
 
     def __str__(self): #metodo para mostrar el computador en pantalla, que devuelve una cadena de caracteres que representa el computador y sus atributos
         return f"Nombre: {self.nombre}\nDescripcion: {self.descripcion}\nPrecio: {self.precio}\nStock: {self.stock} \nMarca: {self.marca}\nGrafica: {self.procesador}\nMemoria: {self.memoria}\nMonitor: {self.monitor}\n"

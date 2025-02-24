@@ -2,11 +2,11 @@ from abc import ABC, abstractmethod
 #Clase abstracta que representa un producto tecnologico, que tiene un nombre, descripcion, precio, stock y marca
 class ProductoTecnologico(ABC):
     def __init__(self, nombre, descripcion, precio, stock, marca): #constructor de la clase productoTecnologico, que recibe un nombre, descripcion, precio, stock y marca y los almacena en atributos para su posterior uso
-        self.nombre = nombre
-        self.descripcion = descripcion
-        self.precio = precio
-        self.stock = stock
-        self.marca = marca
+        self.set_nombre(nombre)
+        self.set_descripcion(descripcion)
+        self.set_precio(precio)
+        self.set_stock(stock)
+        self.set_marca(marca)
 
     def __str__(self): #metodo para mostrar el producto en pantalla, que devuelve una cadena de caracteres que representa el producto y sus atributos
         return f"Nombre: {self.nombre}\nDescripcion: {self.descripcion}\nPrecio: {self.precio}\nStock: {self.stock} \nMarca: {self.marca}"
@@ -47,6 +47,10 @@ class ProductoTecnologico(ABC):
     def set_stock(self, stock): #metodo para establecer el stock del producto, que recibe un entero y lo almacena en el atributo stock
         pass
 
+    @abstractmethod
+    def set_marca(self, marca): #metodo para establecer la marca del producto, que recibe un string y lo almacena en el atributo marca
+        pass
+        
     @abstractmethod
     def calcularPrecio(self): #metodo para calcular el precio del producto, que devuelve un entero que representa el precio
         pass
