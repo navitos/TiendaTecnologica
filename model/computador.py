@@ -1,65 +1,65 @@
 from model.productoTecnologico import ProductoTecnologico
 from model.monitor import Monitor
 
-
+#Clase hija de productoTecnologico que representa un computador, que tiene un nombre, descripcion, precio, stock, marca, grafica, ram y monitor
 class Computador(ProductoTecnologico):
-    def __init__(self, nombre, descripcion, precio, stock, marca, grafica, ram, monitor):
+    def __init__(self, nombre, descripcion, precio, stock, marca, grafica, ram, monitor): #metodo para crear un computador, que recibe un nombre, descripcion, precio, stock, marca, grafica, ram y monitor y los almacena en atributos instanciando un computador
         super().__init__(nombre, descripcion, precio, stock, marca)
         self.procesador = grafica
         self.memoria = ram
         self.monitor = monitor
 
-    def __str__(self):
+    def __str__(self): #metodo para mostrar el computador en pantalla, que devuelve una cadena de caracteres que representa el computador y sus atributos
         return f"Nombre: {self.nombre}\nDescripcion: {self.descripcion}\nPrecio: {self.precio}\nStock: {self.stock} \nMarca: {self.marca}\nGrafica: {self.procesador}\nMemoria: {self.memoria}\nMonitor: {self.monitor}\n"
     
-    def get_nombre(self):
+    def get_nombre(self): #metodo para obtener el nombre del computador, que devuelve una cadena de caracteres que representa el nombre del computador
         return self.nombre
         
-    def get_descripcion(self):
+    def get_descripcion(self): #metodo para obtener la descripcion del computador, que devuelve una cadena de caracteres que representa la descripcion del computador
         return self.descripcion
         
-    def get_precio(self):
+    def get_precio(self): #metodo para obtener el precio del computador, que devuelve un entero que representa el precio del computador
         return self.precio
         
-    def get_stock(self):
+    def get_stock(self): #metodo para obtener el stock del computador, que devuelve un entero que representa el stock del computador
         return self.stock
         
-    def get_marca(self):
+    def get_marca(self): #metodo para obtener la marca del computador, que devuelve una cadena de caracteres que representa la marca del computador
         return self.marca
         
-    def get_grafica(self):
+    def get_grafica(self): #metodo para obtener el grafica del computador, que devuelve una cadena de caracteres que representa el grafica del computador
         return self.procesador
         
-    def get_ram(self):
+    def get_ram(self): #metodo para obtener la memoria del computador, que devuelve un double que representa la memoria del computador
         return self.memoria
         
-    def get_monitor(self):
+    def get_monitor(self): #metodo para obtener el monitor del computador, que devuelve un objeto de la clase monitor que representa el monitor del computador
         return self.monitor
     
-    def set_grafica(self, grafica):
+    def set_grafica(self, grafica): #metodo para establecer el grafica del computador, que recibe una cadena de caracteres y la almacena en el atributo grafica
         self.procesador = grafica
     
-    def set_ram(self, ram):
+    def set_ram(self, ram): #metodo para establecer la memoria del computador, que recibe un double y lo almacena en el atributo memoria
         self.memoria = ram
     
-    def set_monitor(self, monitor):
+    def set_monitor(self, monitor): #metodo para establecer el monitor del computador, que recibe un objeto de la clase monitor y lo almacena en el atributo monitor
         self.monitor = monitor
 
-    def set_marca(self, marca):
+    def set_marca(self, marca): #metodo para establecer la marca del computador, que recibe una cadena de caracteres y la almacena en el atributo marca
         self.marca = marca
 
-    def set_descripcion(self, descripcion):
+    def set_descripcion(self, descripcion): #metodo para establecer la descripcion del computador, que recibe una cadena de caracteres y la almacena en el atributo descripcion
         self.descripcion = descripcion
 
-    def set_precio(self, precio):
+    def set_precio(self, precio): #metodo para establecer el precio del computador, que recibe un entero y lo almacena en el atributo precio
         self.precio = precio
 
-    def set_stock(self, stock):
+    def set_stock(self, stock): #metodo para establecer el stock del computador, que recibe un entero y lo almacena en el atributo stock
         self.stock = stock
     
-    def set_nombre(self, nombre):
+    def set_nombre(self, nombre): #metodo para establecer el nombre del computador, que recibe una cadena de caracteres y la almacena en el atributo nombre
         self.nombre = nombre
 
-    def calcularPrecio(self):
+    def calcularPrecio(self): #metodo para calcular el precio del computador, que devuelve un double que representa el precio del computador
         return self.precio + self.precio * 0.25
     
