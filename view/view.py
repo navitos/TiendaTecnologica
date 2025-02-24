@@ -11,8 +11,8 @@ def abrir_ventana_acerca():
     nueva_ventana.minsize(width=300, height=200)
     Label(nueva_ventana, text="David Alejandro Gutiérrez Hernández - 2220211001").pack(pady=5)
     Label(nueva_ventana, text="Julián Rubiano Santofimio - 2220211015").pack(pady=5)
-    Label(nueva_ventana, text="David Alejandro Gutiérrez Hernández - 2220211001").pack(pady=5)
-    Label(nueva_ventana, text="David Alejandro Gutiérrez Hernández - 2220211001").pack(pady=5)
+    Label(nueva_ventana, text="David Alejandro De Los Reyes Ostos - 2220221059").pack(pady=5)
+    Label(nueva_ventana, text="Jose Ariel Reséndiz Perez").pack(pady=5)
 
 def abrir_ventana_celular():
     nueva_ventana = Toplevel(ventanaPrincipal)
