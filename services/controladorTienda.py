@@ -28,7 +28,20 @@ class ControladorTienda:
     def mostrar_productos(self): #metodo para mostrar todos los productos de la tienda, que devuelve una lista de productos
         for producto in self.productos:
             print(producto.__str__())
+    
+    def listar_celulares(self): #metodo para listar todos los celulares de la tienda, que devuelve una lista de celulares
+        for celular in self.productos:
+            if isinstance(celular, Celular):
+                print(celular.__str__())
+    
+    def listar_computadores(self): #metodo para listar todos los computadores de la tienda, que devuelve una lista de computadores
+        for computador in self.productos:
+            if isinstance(computador, Computador):
+                print(computador.__str__())
 
+    def get_producto(self, index): #metodo para mostrar un producto en especifico de la tienda, que devuelve el producto buscado
+        return self.productos[index]
+    
     def buscar_producto(self, nombre): #metodo para buscar un producto en la tienda, que devuelve el producto buscado
         for i in self.productos:
             if i.get_nombre() == nombre:
