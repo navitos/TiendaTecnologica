@@ -1,5 +1,5 @@
 from model.productoTecnologico import ProductoTecnologico
-from interfaces.IpantallaTactil import iCelular
+from interfaces.IEncender import iCelular
 
 #Clase hija de productoTecnologico que representa un celular, que tiene un nombre, descripcion, precio, stock, marca, capacidad y fechaLanzamiento
 class Celular(ProductoTecnologico, iCelular):
