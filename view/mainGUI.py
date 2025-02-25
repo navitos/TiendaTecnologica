@@ -3,6 +3,7 @@ from view.formularioCelular import FormularioCelular
 from view.formularioComputador import FormularioComputador
 from view.ventanaListar import VentanaListar
 from view.ventanaAcerca import VentanaAcerca
+from view.ventanaPrecioComputadores import VentanaPrecioComputadores
 from services.controladorTienda import ControladorTienda
 from model.celular import Celular
 from model.computador import Computador
@@ -32,11 +33,13 @@ class TiendaApp:
         self.menu_celular.add_command(label="Añadir celular", command=self.abrir_ventana_celular)
         self.menu_celular.add_command(label="Consultar celular")
         self.menu_celular.add_command(label="Eliminar celular")
+        self.menu_celular.add_command(label="calcular precio")
 
         self.menu_computador = Menu(self.root, tearoff=0)
         self.menu_computador.add_command(label="Añadir computador", command=self.abrir_ventana_computador)
         self.menu_computador.add_command(label="Consultar computador")
         self.menu_computador.add_command(label="Eliminar computador")
+        self.menu_computador.add_command(label="calcular precio", command=self.abrir_ventana_precio_computadores)
 
 
     def crear_botones(self):
@@ -73,6 +76,9 @@ class TiendaApp:
     def abrir_ventana_listar(self):
         VentanaListar(self.root, self.servidor)
 
+    def abrir_ventana_precio_computadores(self):
+        VentanaPrecioComputadores(self.root, self.servidor)
+    
     def generar_datos_prueba(self):
         nombres_celulares = ["iPhone 13", "Samsung Galaxy S21", "Google Pixel 6", "Xiaomi Mi 11", "OnePlus 9"]
         nombres_computadores = ["MacBook Pro", "Dell XPS 13", "HP Spectre x360", "Lenovo ThinkPad X1", "Asus ROG Zephyrus"]
