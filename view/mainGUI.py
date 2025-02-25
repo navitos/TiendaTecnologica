@@ -7,6 +7,8 @@ from view.ventanaPrecioComputadores import VentanaPrecioComputadores
 from view.ventanaPrecioCelulares import VentanaPrecioCelulares
 from services.controladorTienda import ControladorTienda
 from view.ventanaPrecio import VentanaPrecio
+from view.vetanaBuscarCelular import VentanaBuscarCelular
+from view.ventanaBuscarComputador import VentanaBuscarComputador
 from model.celular import Celular
 from model.computador import Computador
 from model.monitor import Monitor
@@ -33,13 +35,13 @@ class TiendaApp: #Clase que controla la ventana principal de la tienda
     def crear_menus(self): #metodo para crear los menus de la ventana principal
         self.menu_celular = Menu(self.root, tearoff=0)
         self.menu_celular.add_command(label="Añadir celular", command=self.abrir_ventana_celular)
-        self.menu_celular.add_command(label="Consultar celular")
+        self.menu_celular.add_command(label="Consultar celular", command=self.abrir_ventana_buscar_celular)
         self.menu_celular.add_command(label="Eliminar celular")
         self.menu_celular.add_command(label="calcular precio", command=self.abrir_ventana_precio_celulares)
 
         self.menu_computador = Menu(self.root, tearoff=0)
         self.menu_computador.add_command(label="Añadir computador", command=self.abrir_ventana_computador)
-        self.menu_computador.add_command(label="Consultar computador")
+        self.menu_computador.add_command(label="Consultar computador", command=self.abrir_ventana_buscar_computador)
         self.menu_computador.add_command(label="Eliminar computador")
         self.menu_computador.add_command(label="calcular precio", command=self.abrir_ventana_precio_computadores)
 
@@ -86,6 +88,12 @@ class TiendaApp: #Clase que controla la ventana principal de la tienda
         
     def abrir_ventana_precio_celulares(self): #metodo para abrir la ventana de precio de celulares
         VentanaPrecioCelulares(self.root, self.servidor)
+        
+    def abrir_ventana_buscar_celular(self): #metodo para abrir la ventana de buscar celular
+        VentanaBuscarCelular(self.root, self.servidor)
+    
+    def abrir_ventana_buscar_computador(self): #metodo para abrir la ventana de buscar computador
+        VentanaBuscarComputador(self.root, self.servidor)
     
     def generar_datos_prueba(self): #metodo para generar datos de prueba para la tienda
         self.servidor.agregar_computador("Dell XPS 13", "Computadora ultradelgada", 1199, 20, "Dell", "Intel Iris Xe", 16)
