@@ -40,7 +40,7 @@ class ControladorTienda:
                 print(computador.__str__())
 
     def get_producto(self, index): #metodo para mostrar un producto en especifico de la tienda, que devuelve el producto buscado
-        return self.productos[index]
+        print(self.productos[index].__str__())
     
     def buscar_producto(self, nombre): #metodo para buscar un producto en la tienda, que devuelve el producto buscado
         for i in self.productos:
