@@ -88,35 +88,27 @@ class TiendaApp: #Clase que controla la ventana principal de la tienda
         VentanaPrecioCelulares(self.root, self.servidor)
     
     def generar_datos_prueba(self): #metodo para generar datos de prueba para la tienda
-        nombres_celulares = ["iPhone 13", "Samsung Galaxy S21", "Google Pixel 6", "Xiaomi Mi 11", "OnePlus 9"]
-        nombres_computadores = ["MacBook Pro", "Dell XPS 13", "HP Spectre x360", "Lenovo ThinkPad X1", "Asus ROG Zephyrus"]
-        marcas = ["Apple", "Samsung", "Google", "Xiaomi", "Dell", "HP", "Lenovo", "Asus"]
-        capacidades = [64, 128, 256, 512, 1024]
-        fechas_lanzamiento = ["2021-09-14", "2021-01-29", "2020-10-05", "2022-03-08", "2021-11-15"]
-
-        # Generar 10 celulares de prueba
-        for _ in range(10):
-            nombre = choice(nombres_celulares)
-            descripcion = f"Smartphone de {nombre.split()[0]}"
-            precio = randint(500, 1500)
-            stock = randint(1, 20)
-            marca = choice(marcas)
-            capacidad = choice(capacidades)
-            fechaLanzamiento = choice(fechas_lanzamiento)
-            self.servidor.agregar_celular(nombre, descripcion, precio, stock, marca, capacidad, fechaLanzamiento)
-
-        # Generar 10 computadores de prueba
-        for _ in range(10):
-            nombre = choice(nombres_computadores)
-            descripcion = f"Laptop de {nombre.split()[0]}"
-            precio = randint(800, 3000)
-            stock = randint(1, 15)
-            marca = choice(marcas)
-            grafica = "Integrada" if randint(0, 1) else "Dedicada"
-            ram = choice([8, 16, 32])
-
-            self.servidor.agregar_computador(nombre, descripcion, precio, stock, marca, grafica, ram)
-
+        self.servidor.agregar_computador("Dell XPS 13", "Computadora ultradelgada", 1199, 20, "Dell", "Intel Iris Xe", 16)
+        self.servidor.agregar_computador("MacBook Pro 14", "Computadora de alto rendimiento", 1999, 15, "Apple", "Apple M1 Pro", 16)
+        self.servidor.agregar_computador("HP Spectre x360", "Computadora convertible", 1399, 25, "HP", "Intel Iris Xe", 16)
+        self.servidor.agregar_computador("Lenovo ThinkPad X1", "Computadora para profesionales", 1499, 18, "Lenovo", "Intel UHD", 32)
+        self.servidor.agregar_computador("Asus ZenBook 14", "Computadora ultradelgada con gran batería", 1099, 30, "Asus", "NVIDIA GeForce MX450", 8)
+        self.servidor.agregar_computador("Acer Swift 3", "Computadora ligera para productividad", 799, 40, "Acer", "AMD Radeon", 8)
+        self.servidor.agregar_computador("Microsoft Surface Laptop 4", "Computadora con pantalla táctil", 1299, 22, "Microsoft", "Intel Iris Xe", 16)
+        self.servidor.agregar_computador("Razer Blade 15", "Computadora gamer con gran rendimiento", 2199, 10, "Razer", "NVIDIA GeForce RTX 3070",16)
+        self.servidor.agregar_computador("Samsung Galaxy Book Pro 360", "Computadora convertible con pantalla AMOLED", 1399, 17, "Samsung", "Intel Iris Xe", 16)
+        self.servidor.agregar_computador("Gigabyte Aorus 15G", "Computadora gamer con teclado mecánico", 1699, 12, "Gigabyte", "NVIDIA GeForce RTX 3060", 16)
+        self.servidor.agregar_celular("Samsung Galaxy S22", "Smartphone de gama alta", 799, 50, "Samsung", 128, "2022-02-25")
+        self.servidor.agregar_celular("iPhone 13", "Smartphone con cámara avanzada", 899, 40, "Apple", 256, "2021-09-14")
+        self.servidor.agregar_celular("Xiaomi Mi 11", "Smartphone de gran rendimiento", 749, 60, "Xiaomi", 128, "2021-01-01")
+        self.servidor.agregar_celular("Huawei P50", "Smartphone con cámara Leica", 899, 45, "Huawei", 256, "2021-07-29")
+        self.servidor.agregar_celular("OnePlus 9", "Smartphone con carga rápida", 729, 55, "OnePlus", 128, "2021-03-23")
+        self.servidor.agregar_celular("Google Pixel 6", "Smartphone con Android puro", 799, 50, "Google", 128, "2021-10-28")
+        self.servidor.agregar_celular("Oppo Find X3", "Smartphone con cámara 4K", 849, 40, "Oppo", 256, "2021-03-11")
+        self.servidor.agregar_celular("Sony Xperia 5 II", "Smartphone con pantalla 120Hz", 949, 35, "Sony", 128, "2020-09-29")
+        self.servidor.agregar_celular("Motorola Edge+", "Smartphone con pantalla OLED", 999, 30, "Motorola", 256, "2020-04-22")
+        self.servidor.agregar_celular("Asus ROG Phone 5", "Smartphone gamer con gran batería", 1099, 25, "Asus", 512, "2021-03-10")
+       
     def centrar_ventana(self, ventana): #metodo para centrar la ventana respecto a la pantalla
         ventana.update_idletasks()  # Actualizar la geometría de la ventana
         ancho = ventana.winfo_width()

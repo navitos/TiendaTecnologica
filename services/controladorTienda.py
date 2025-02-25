@@ -51,21 +51,21 @@ class ControladorTienda:
     def calcular_total(self): #metodo para calcular el total de todos los productos de la tienda, que devuelve el total de precio de todos los productos
         total = 0
         for i in self.productos:
-            total += i.calcularPrecio()
+            total += i.calcularPrecio() * i.get_stock()
         return total
 
     def calcular_total_celulares(self): #Metodo para calcular el total de precio de todos los celulares de la tienda, que devuelve el total de precio de todos los celulares
         total = 0
         for i in self.productos:
             if isinstance(i, Celular):
-                total += i.calcularPrecio()
+                total += i.calcularPrecio() * i.get_stock()
         return total
     
     def calcular_total_computadores(self): #Metodo para calcular el total de precio de todos los computadores de la tienda, que devuelve el total de precio de todos los computadores
         total = 0
         for i in self.productos:
             if isinstance(i, Computador):
-                total += i.calcularPrecio()
+                total += i.calcularPrecio() * i.get_stock()
         return total
 
 
