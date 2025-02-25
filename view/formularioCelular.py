@@ -8,7 +8,8 @@ class FormularioCelular:
         self.servicio = servicio
         self.nueva_ventana = Toplevel(root)
         self.nueva_ventana.title("Añadir Celular")
-        self.nueva_ventana.minsize(width=300, height=350)
+        self.nueva_ventana.minsize(width=400, height=400)
+        self.centrar_ventana(self.nueva_ventana)
         
         # Campos de entrada
         Label(self.nueva_ventana, text="Nombre:").pack()
@@ -41,6 +42,14 @@ class FormularioCelular:
         
         # Botón para guardar
         Button(self.nueva_ventana, text="Guardar", command=self.guardar_celular).pack(pady=10)
+
+    def centrar_ventana(self, ventana):
+        ventana.update_idletasks()  # Actualizar la geometría de la ventana
+        ancho = ventana.winfo_width()
+        alto = ventana.winfo_height()
+        x = (ventana.winfo_screenwidth() // 2) - (ancho // 2)
+        y = (ventana.winfo_screenheight() // 2) - (alto // 2)
+        ventana.geometry(f"{ancho}x{alto}+{x}+{y}")
 
     def guardar_celular(self):
         try:

@@ -1,13 +1,21 @@
-from tkinter import *
-from view.formularioComputador import FormularioComputador
+from tkinter import Tk, Frame, Button, Menu
 from view.formularioCelular import FormularioCelular
+from view.formularioComputador import FormularioComputador
+from view.ventanaListar import VentanaListar
+from view.ventanaAcerca import VentanaAcerca
 from services.controladorTienda import ControladorTienda
+from model.celular import Celular
+from model.computador import Computador
+from model.monitor import Monitor
+from random import choice, randint
 
 class TiendaApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Tienda Tecnologica")
-        self.root.minsize(width=600, height=400)
+        self.root.minsize(width=1000, height=600)
+        self.centrar_ventana(self.root)  # Centrar la ventana principal
+        self.root.resizable(True, True)  # Hacerla redimensionable
 
         self.frame_botones = Frame(self.root)
         self.frame_botones.grid(row=0, column=0, sticky="nw")
@@ -15,19 +23,21 @@ class TiendaApp:
         self.crear_menus()
         self.crear_botones()
         self.servidor = ControladorTienda([])
+
+        # Generar datos de prueba
+        self.generar_datos_prueba()
     
     def crear_menus(self):
         self.menu_celular = Menu(self.root, tearoff=0)
         self.menu_celular.add_command(label="Añadir celular", command=self.abrir_ventana_celular)
         self.menu_celular.add_command(label="Consultar celular")
         self.menu_celular.add_command(label="Eliminar celular")
-        self.menu_celular.add_command(label="Listar celulares")
 
         self.menu_computador = Menu(self.root, tearoff=0)
         self.menu_computador.add_command(label="Añadir computador", command=self.abrir_ventana_computador)
         self.menu_computador.add_command(label="Consultar computador")
         self.menu_computador.add_command(label="Eliminar computador")
-        self.menu_computador.add_command(label="Listar computadores")
+
 
     def crear_botones(self):
         self.btn_celular = Button(self.frame_botones, text="Celular", 
@@ -38,7 +48,7 @@ class TiendaApp:
                                      command=lambda: self.mostrar_menu_bajo_boton(self.btn_computador, self.menu_computador))
         self.btn_computador.grid(row=0, column=1, sticky="w")
 
-        self.btn_listar = Button(self.frame_botones, text="Listar")
+        self.btn_listar = Button(self.frame_botones, text="Listar", command=self.abrir_ventana_listar)
         self.btn_calcular = Button(self.frame_botones, text="Calcular Precio")
         self.btn_acerca = Button(self.frame_botones, text="Acerca de", command=self.abrir_ventana_acerca)
 
@@ -52,19 +62,54 @@ class TiendaApp:
         menu.tk_popup(x, y)
 
     def abrir_ventana_acerca(self):
-        nueva_ventana = Toplevel(self.root)
-        nueva_ventana.title("Menú acerca de")
-        nueva_ventana.minsize(width=300, height=200)
-        Label(nueva_ventana, text="David Alejandro Gutiérrez Hernández - 2220211001").pack(pady=5)
-        Label(nueva_ventana, text="Julián Rubiano Santofimio - 2220211015").pack(pady=5)
-        Label(nueva_ventana, text="David Alejandro De Los Reyes Ostos - 2220221059").pack(pady=5)
-        Label(nueva_ventana, text="Jose Ariel Reséndiz Perez").pack(pady=5)
+        VentanaAcerca(self.root)
 
     def abrir_ventana_celular(self):
         FormularioCelular(self.root, self.servidor)
 
     def abrir_ventana_computador(self):
         FormularioComputador(self.root, self.servidor)
+
+    def abrir_ventana_listar(self):
+        VentanaListar(self.root, self.servidor)
+
+    def generar_datos_prueba(self):
+        nombres_celulares = ["iPhone 13", "Samsung Galaxy S21", "Google Pixel 6", "Xiaomi Mi 11", "OnePlus 9"]
+        nombres_computadores = ["MacBook Pro", "Dell XPS 13", "HP Spectre x360", "Lenovo ThinkPad X1", "Asus ROG Zephyrus"]
+        marcas = ["Apple", "Samsung", "Google", "Xiaomi", "Dell", "HP", "Lenovo", "Asus"]
+        capacidades = [64, 128, 256, 512, 1024]
+        fechas_lanzamiento = ["2021-09-14", "2021-01-29", "2020-10-05", "2022-03-08", "2021-11-15"]
+
+        # Generar 10 celulares de prueba
+        for _ in range(10):
+            nombre = choice(nombres_celulares)
+            descripcion = f"Smartphone de {nombre.split()[0]}"
+            precio = randint(500, 1500)
+            stock = randint(1, 20)
+            marca = choice(marcas)
+            capacidad = choice(capacidades)
+            fechaLanzamiento = choice(fechas_lanzamiento)
+            self.servidor.agregar_celular(nombre, descripcion, precio, stock, marca, capacidad, fechaLanzamiento)
+
+        # Generar 10 computadores de prueba
+        for _ in range(10):
+            nombre = choice(nombres_computadores)
+            descripcion = f"Laptop de {nombre.split()[0]}"
+            precio = randint(800, 3000)
+            stock = randint(1, 15)
+            marca = choice(marcas)
+            grafica = "Integrada" if randint(0, 1) else "Dedicada"
+            ram = choice([8, 16, 32])
+
+            self.servidor.agregar_computador(nombre, descripcion, precio, stock, marca, grafica, ram)
+
+    def centrar_ventana(self, ventana):
+        ventana.update_idletasks()  # Actualizar la geometría de la ventana
+        ancho = ventana.winfo_width()
+        alto = ventana.winfo_height()
+        x = (ventana.winfo_screenwidth() // 2) - (ancho // 2)
+        y = (ventana.winfo_screenheight() // 2) - (alto // 2)
+        ventana.geometry(f"{ancho}x{alto}+{x}+{y}")
 
 if __name__ == "__main__":
     root = Tk()
