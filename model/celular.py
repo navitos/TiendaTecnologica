@@ -1,7 +1,8 @@
 from model.productoTecnologico import ProductoTecnologico
+from interfaces.IpantallaTactil import iCelular
 
 #Clase hija de productoTecnologico que representa un celular, que tiene un nombre, descripcion, precio, stock, marca, capacidad y fechaLanzamiento
-class Celular(ProductoTecnologico):
+class Celular(ProductoTecnologico, iCelular):
     def __init__(self, nombre, descripcion, precio, stock, marca, capacidad, fechaLanzamiento): #metodo para crear un celular, que recibe un nombre, descripcion, precio, stock, marca, capacidad y fechaLanzamiento y los almacena en atributos instanciando un celular
         super().__init__(nombre, descripcion, precio, stock, marca)
         self.set_capacidad(capacidad)
@@ -61,3 +62,5 @@ class Celular(ProductoTecnologico):
     def calcularPrecio(self): #metodo para calcular el precio del celular, que devuelve un double que representa el precio del celular
         return self.precio + self.precio * 0.19
     
+    def encender(self): #metodo para encender el celular, que muestra un mensaje en pantalla
+        print("Encendiendo celular")
