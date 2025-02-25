@@ -10,8 +10,8 @@ class VentanaBuscarComputador:
         self.ventana = Toplevel(self.root)
         self.ventana.title("Buscar Computador")
         self.ventana.minsize(width=400, height=400)
-        self.centrar_ventana(self.ventana)  # Centrar la ventana
         self.ventana.resizable(False, False)  # Hacerla no redimensionable
+        self.centrar_ventana(self.ventana)  # Centrar la ventana
 
         # Campo de entrada para el nombre del celular
         Label(self.ventana, text="Nombre del computador:", font=("Arial", 10)).pack(pady=10)

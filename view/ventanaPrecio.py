@@ -10,8 +10,8 @@ class VentanaPrecio:
         self.ventana = Toplevel(self.root)
         self.ventana.title("Precio Total de los articulos de la tienda")
         self.ventana.minsize(width=350, height=100)
-        self.centrar_ventana(self.ventana)  # Centrar la ventana
         self.ventana.resizable(False, False)  # Hacerla no redimensionable
+        self.centrar_ventana(self.ventana)  # Centrar la ventana
 
         # Calcular el precio total de los computadores
         precio_total = self.controlador_tienda.calcular_total()
