@@ -26,11 +26,12 @@ class ControladorTienda:
         self.productos.remove(producto)
 
     def mostrar_productos(self): #metodo para mostrar todos los productos de la tienda, que devuelve una lista de productos
-        print(self.productos)
+        for producto in self.productos:
+            print(producto.__str__())
 
-    def buscar_producto(self, producto): #metodo para buscar un producto en la tienda, que devuelve el producto buscado
+    def buscar_producto(self, nombre): #metodo para buscar un producto en la tienda, que devuelve el producto buscado
         for i in self.productos:
-            if i.get_nombre() == producto:
+            if i.get_nombre() == nombre:
                 return i
         return None
     
@@ -41,12 +42,5 @@ class ControladorTienda:
         return total
 
 
-#prueba en consola del funcionamiento del controlador y las clases basicas
-hola = ControladorTienda([])
-hola.agregar_celular("iphone 13", "celular de 13 megapixels", 1000, 100, "apple", -4, "12/28/2003")
-hola.agregar_celular("infinix gt 20 pro", "celular gamer gama alta", 2000, 23, "infinix", 256, "06/06/2024" )
-hola.agregar_computador("asus pc", "computador de mesa asus basico", 0,10,"asus","gt1030",8)
 
 
-for producto in hola.productos:
-    print(producto.__str__())

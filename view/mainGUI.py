@@ -1,9 +1,12 @@
 from tkinter import *
+from view.formularioComputador import FormularioComputador
+from view.formularioCelular import FormularioCelular
+from services.controladorTienda import ControladorTienda
 
 class TiendaApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Tienda")
+        self.root.title("Tienda Tecnologica")
         self.root.minsize(width=600, height=400)
 
         self.frame_botones = Frame(self.root)
@@ -11,17 +14,20 @@ class TiendaApp:
 
         self.crear_menus()
         self.crear_botones()
+        self.servidor = ControladorTienda([])
     
     def crear_menus(self):
         self.menu_celular = Menu(self.root, tearoff=0)
         self.menu_celular.add_command(label="Añadir celular", command=self.abrir_ventana_celular)
         self.menu_celular.add_command(label="Consultar celular")
         self.menu_celular.add_command(label="Eliminar celular")
+        self.menu_celular.add_command(label="Listar celulares")
 
         self.menu_computador = Menu(self.root, tearoff=0)
         self.menu_computador.add_command(label="Añadir computador", command=self.abrir_ventana_computador)
         self.menu_computador.add_command(label="Consultar computador")
         self.menu_computador.add_command(label="Eliminar computador")
+        self.menu_computador.add_command(label="Listar computadores")
 
     def crear_botones(self):
         self.btn_celular = Button(self.frame_botones, text="Celular", 
@@ -55,10 +61,10 @@ class TiendaApp:
         Label(nueva_ventana, text="Jose Ariel Reséndiz Perez").pack(pady=5)
 
     def abrir_ventana_celular(self):
-        FormularioCelular(self.root)
+        FormularioCelular(self.root, self.servidor)
 
     def abrir_ventana_computador(self):
-        FormularioComputador(self.root)
+        FormularioComputador(self.root, self.servidor)
 
 if __name__ == "__main__":
     root = Tk()

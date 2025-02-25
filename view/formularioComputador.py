@@ -1,7 +1,9 @@
 from tkinter import *
 
 class FormularioComputador:
-    def __init__(self, root):
+    def __init__(self, root, servicio):
+
+        self.servicio = servicio
         self.nueva_ventana = Toplevel(root)
         self.nueva_ventana.title("Añadir Computador")
         self.nueva_ventana.minsize(width=300, height=350)
