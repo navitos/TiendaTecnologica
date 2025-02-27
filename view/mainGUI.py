@@ -1,4 +1,5 @@
-from tkinter import Tk, Frame, Button, Menu
+from tkinter import Tk, Frame, Button, Menu, PhotoImage, Label
+from tkinter import ttk
 from view.formularioCelular import FormularioCelular
 from view.formularioComputador import FormularioComputador
 from view.ventanaListar import VentanaListar
@@ -15,19 +16,28 @@ from model.celular import Celular
 from model.computador import Computador
 from model.monitor import Monitor
 from random import choice, randint
+from PIL import Image, ImageTk  # Asegúrate de tener instalada la librería Pillow
 
 class TiendaApp: #Clase que controla la ventana principal de la tienda
     def __init__(self, root): #constructor de la clase TiendaApp
+        
         self.root = root
         self.root.title("Tienda Tecnologica")
         self.root.minsize(width=1000, height=600) # Tamaño mínimo de la ventana
         self.root.resizable(True, True)  # Hacerla redimensionable
         self.centrar_ventana(self.root)  # Centrar la ventana principal
+        self.root.configure(bg="#E3F2FD")  # Fondo azul claro
+
+        # Aplicar la fuente global Poppins
+        self.root.option_add("*Font", "Poppins 9")
+        self.root.option_add("*Label.Font", "Poppins 9 bold")
+        self.root.option_add("*Button.Font", "Poppins 9 bold")
 
         self.frame_botones = Frame(self.root)
         self.frame_botones.grid(row=0, column=0, sticky="nw")
 
         self.crear_menus()
+        self.cargar_iconos()
         self.crear_botones()
         self.servidor = ControladorTienda([])
 
@@ -46,23 +56,40 @@ class TiendaApp: #Clase que controla la ventana principal de la tienda
         self.menu_computador.add_command(label="Consultar computador", command=self.abrir_ventana_buscar_computador)
         self.menu_computador.add_command(label="Eliminar computador", command=self.abrir_ventana_eliminar_computador)
         self.menu_computador.add_command(label="calcular precio", command=self.abrir_ventana_precio_computadores)
+    
 
+    def cargar_iconos(self):
+        imagen_calculadora = Image.open("view/resources/calculadora.png")
+        imagen_redimensionada1 = imagen_calculadora.resize((25, 25), Image.LANCZOS)  # Ajusta el tamaño según sea necesario
+        self.icono_calculadora = ImageTk.PhotoImage(imagen_redimensionada1)
+
+        imagen_lista = Image.open("view/resources/lista.png")
+        imagen_redimensionada2 = imagen_lista.resize((25, 25), Image.LANCZOS)  # Ajusta el tamaño según sea necesario
+        self.icono_lista = ImageTk.PhotoImage(imagen_redimensionada2)
 
     def crear_botones(self): #metodo para crear los botones de la ventana principal
-        self.btn_celular = Button(self.frame_botones, text="Celular", 
-                                  command=lambda: self.mostrar_menu_bajo_boton(self.btn_celular, self.menu_celular))
+        self.btn_celular = Button(self.frame_botones, text="Celular", command=lambda: self.mostrar_menu_bajo_boton(self.btn_celular, self.menu_celular))
         self.btn_celular.grid(row=0, column=0, sticky="w")
 
-        self.btn_computador = Button(self.frame_botones, text="Computador", 
-                                     command=lambda: self.mostrar_menu_bajo_boton(self.btn_computador, self.menu_computador))
+        self.btn_computador = Button(self.frame_botones, text="Computador", command=lambda: self.mostrar_menu_bajo_boton(self.btn_computador, self.menu_computador))
         self.btn_computador.grid(row=0, column=1, sticky="w")
 
-        self.btn_listar = Button(self.frame_botones, text="Listar", command=self.abrir_ventana_listar)
-        self.btn_calcular = Button(self.frame_botones, text="Calcular Precio", command = self.abrir_ventana_precio)
-        self.btn_acerca = Button(self.frame_botones, text="Acerca de", command=self.abrir_ventana_acerca)
+        # Label para mostrar la imagen a la izquierda del botón
+        self.lbl_icono = Label(self.root, image=self.icono_calculadora, bg="#E3F2FD")
+        self.lbl_icono.place(relx=0.42, rely=0.5, anchor="center")  # Ajusta la posición según sea necesario
 
-        self.btn_listar.grid(row=0, column=2, sticky="w")
-        self.btn_calcular.grid(row=0, column=3, sticky="w")
+        # Label para mostrar la imagen a la izquierda del botón
+        self.lbl_icono = Label(self.root, image=self.icono_lista, bg="#E3F2FD")
+        self.lbl_icono.place(relx=0.42, rely=0.4, anchor="center")  # Ajusta la posición según sea necesario
+
+        boton_ancho = 15
+        self.btn_listar = Button(self.root, text="Listar", width=boton_ancho, command=self.abrir_ventana_listar)
+        self.btn_listar.place(relx=0.5, rely=0.4, anchor="center")
+        
+        self.btn_calcular = Button(self.root, text="Calcular Precio", width=boton_ancho ,command=self.abrir_ventana_precio)
+        self.btn_calcular.place(relx=0.5, rely=0.5, anchor="center")
+
+        self.btn_acerca = Button(self.frame_botones, text="Acerca de", command=self.abrir_ventana_acerca)
         self.btn_acerca.grid(row=0, column=4, sticky="w")
     
     def mostrar_menu_bajo_boton(self, boton, menu): #metodo para mostrar un menu bajo un boton
