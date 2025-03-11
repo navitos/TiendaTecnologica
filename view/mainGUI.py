@@ -1,5 +1,6 @@
-from tkinter import Tk, Frame, Button, Menu, PhotoImage, Label
-from tkinter import ttk
+import ttkbootstrap as ttk
+from ttkbootstrap.constants import *
+from PIL import Image, ImageTk
 from view.formularioCelular import FormularioCelular
 from view.formularioComputador import FormularioComputador
 from view.ventanaListar import VentanaListar
@@ -12,122 +13,141 @@ from view.vetanaBuscarCelular import VentanaBuscarCelular
 from view.ventanaBuscarComputador import VentanaBuscarComputador
 from view.ventanaEliminarCelular import VentanaEliminarCelular
 from view.ventanaEliminarComputador import VentanaEliminarComputador
-from model.celular import Celular
-from model.computador import Computador
-from model.monitor import Monitor
-from random import choice, randint
-from PIL import Image, ImageTk  # Asegúrate de tener instalada la librería Pillow
+#from tkinter import ttk
+from PIL import Image, ImageTk
 
-class TiendaApp: #Clase que controla la ventana principal de la tienda
-    def __init__(self, root): #constructor de la clase TiendaApp
-        
+class TiendaApp:
+    def __init__(self, root):
+        self.menu_visible = True
         self.root = root
-        self.root.title("Tienda Tecnologica")
-        self.root.minsize(width=1000, height=600) # Tamaño mínimo de la ventana
-        self.root.resizable(True, True)  # Hacerla redimensionable
-        self.centrar_ventana(self.root)  # Centrar la ventana principal
-        self.root.configure(bg="#E3F2FD")  # Fondo azul claro
-
-        # Aplicar la fuente global Poppins
-        self.root.option_add("*Font", "Poppins 9")
-        self.root.option_add("*Label.Font", "Poppins 9 bold")
-        self.root.option_add("*Button.Font", "Poppins 9 bold")
-
-        self.frame_botones = Frame(self.root)
-        self.frame_botones.grid(row=0, column=0, sticky="nw")
-
-        self.crear_menus()
-        self.cargar_iconos()
-        self.crear_botones()
-        self.servidor = ControladorTienda([])
-
-        # Generar datos de prueba
-        self.generar_datos_prueba()
-    
-    def crear_menus(self): #metodo para crear los menus de la ventana principal
-        self.menu_celular = Menu(self.root, tearoff=0)
-        self.menu_celular.add_command(label="Añadir celular", command=self.abrir_ventana_celular)
-        self.menu_celular.add_command(label="Consultar celular", command=self.abrir_ventana_buscar_celular)
-        self.menu_celular.add_command(label="Eliminar celular", command=self.abrir_ventana_eliminar_celular)
-        self.menu_celular.add_command(label="calcular precio", command=self.abrir_ventana_precio_celulares)
-
-        self.menu_computador = Menu(self.root, tearoff=0)
-        self.menu_computador.add_command(label="Añadir computador", command=self.abrir_ventana_computador)
-        self.menu_computador.add_command(label="Consultar computador", command=self.abrir_ventana_buscar_computador)
-        self.menu_computador.add_command(label="Eliminar computador", command=self.abrir_ventana_eliminar_computador)
-        self.menu_computador.add_command(label="calcular precio", command=self.abrir_ventana_precio_computadores)
-    
-
-    def cargar_iconos(self):
-        imagen_calculadora = Image.open("view/resources/calculadora.png")
-        imagen_redimensionada1 = imagen_calculadora.resize((25, 25), Image.LANCZOS)  # Ajusta el tamaño según sea necesario
-        self.icono_calculadora = ImageTk.PhotoImage(imagen_redimensionada1)
-
-        imagen_lista = Image.open("view/resources/lista.png")
-        imagen_redimensionada2 = imagen_lista.resize((25, 25), Image.LANCZOS)  # Ajusta el tamaño según sea necesario
-        self.icono_lista = ImageTk.PhotoImage(imagen_redimensionada2)
-
-    def crear_botones(self): #metodo para crear los botones de la ventana principal
-        self.btn_celular = Button(self.frame_botones, text="Celular", command=lambda: self.mostrar_menu_bajo_boton(self.btn_celular, self.menu_celular))
-        self.btn_celular.grid(row=0, column=0, sticky="w")
-
-        self.btn_computador = Button(self.frame_botones, text="Computador", command=lambda: self.mostrar_menu_bajo_boton(self.btn_computador, self.menu_computador))
-        self.btn_computador.grid(row=0, column=1, sticky="w")
-
-        # Label para mostrar la imagen a la izquierda del botón
-        self.lbl_icono = Label(self.root, image=self.icono_calculadora, bg="#E3F2FD")
-        self.lbl_icono.place(relx=0.42, rely=0.5, anchor="center")  # Ajusta la posición según sea necesario
-
-        # Label para mostrar la imagen a la izquierda del botón
-        self.lbl_icono = Label(self.root, image=self.icono_lista, bg="#E3F2FD")
-        self.lbl_icono.place(relx=0.42, rely=0.4, anchor="center")  # Ajusta la posición según sea necesario
-
-        boton_ancho = 15
-        self.btn_listar = Button(self.root, text="Listar", width=boton_ancho, command=self.abrir_ventana_listar)
-        self.btn_listar.place(relx=0.5, rely=0.4, anchor="center")
+        self.root.title("Tienda Tecnológica")
+        self.root.geometry("1000x600")  
+        self.root.resizable(True, True)
+        self.centrar_ventana()
         
-        self.btn_calcular = Button(self.root, text="Calcular Precio", width=boton_ancho ,command=self.abrir_ventana_precio)
-        self.btn_calcular.place(relx=0.5, rely=0.5, anchor="center")
+        # Aplicar tema de ttkbootstrap (ej: "darkly", "superhero", "solar")
+        self.root.style = ttk.Style()  
+        self.root.style.theme_use("cosmo")
 
-        self.btn_acerca = Button(self.frame_botones, text="Acerca de", command=self.abrir_ventana_acerca)
-        self.btn_acerca.grid(row=0, column=4, sticky="w")
+        self.servidor = ControladorTienda([])
+        self.crear_menu()
+        
+        self.crear_menu_lateral()
+        self.generar_datos_prueba()
+        self.agregar_imagen_centrada()
+        
+
+
+    def crear_menu(self):
+        #"""Crea un menú superior con un diseño mejorado"""
+        menubar = ttk.Menu(self.root)
+
+        # Menú Celulares
+        menu_celular = ttk.Menu(menubar, tearoff=0)
+        menu_celular.add_command(label="Añadir Celular", command=self.abrir_ventana_celular)
+        menu_celular.add_command(label="Consultar Celular", command=self.abrir_ventana_buscar_celular)
+        menu_celular.add_command(label="Eliminar Celular", command=self.abrir_ventana_eliminar_celular)
+        menu_celular.add_command(label="Calcular Precio", command=self.abrir_ventana_precio_celulares)
+        menubar.add_cascade(label="📱 Celulares", menu=menu_celular)
+
+        # Menú Computadores
+        menu_computador = ttk.Menu(menubar, tearoff=0)
+        menu_computador.add_command(label="Añadir Computador", command=self.abrir_ventana_computador)
+        menu_computador.add_command(label="Consultar Computador", command=self.abrir_ventana_buscar_computador)
+        menu_computador.add_command(label="Eliminar Computador", command=self.abrir_ventana_eliminar_computador)
+        menu_computador.add_command(label="Calcular Precio", command=self.abrir_ventana_precio_computadores)
+        menubar.add_cascade(label="💻 Computadores", menu=menu_computador)
+
+        # Menú Otras Opciones
+        menu_otras = ttk.Menu(menubar, tearoff=0)
+        menu_otras.add_command(label="📜 Listar Productos", command=self.abrir_ventana_listar)
+        menu_otras.add_command(label="💰 Calcular Precio Total", command=self.abrir_ventana_precio)
+        menu_otras.add_separator()
+        menu_otras.add_command(label="ℹ Acerca de", command=self.abrir_ventana_acerca)
+        menubar.add_cascade(label="🔧 Más Opciones", menu=menu_otras)
+
+        self.root.config(menu=menubar)
+
+    def crear_menu_lateral(self):
+        #"""Crea un menú lateral con los botones ubicados más abajo"""
+        self.frame_menu = ttk.Frame(self.root, padding=10, width=200)
+        self.frame_menu.pack(side=LEFT, fill=Y)
+
+        # Frame interno para agrupar los botones y bajarlos
+        self.frame_botones = ttk.Frame(self.frame_menu)
+        self.frame_botones.pack(side=TOP, pady=50)  # Ajusta `pady` para mover más abajo
+
+        ttk.Button(self.frame_botones, text="📱 Añadir Celular", command=self.abrir_ventana_celular).pack(fill=X, pady=5)
+        ttk.Button(self.frame_botones, text="💻 Añadir Computador", command=self.abrir_ventana_computador).pack(fill=X, pady=5)
+        ttk.Button(self.frame_botones, text="📜 Listar Productos", command=self.abrir_ventana_listar).pack(fill=X, pady=5)
+        ttk.Button(self.frame_botones, text="💰 Calcular Precio", command=self.abrir_ventana_precio).pack(fill=X, pady=5)
+        ttk.Button(self.frame_botones, text="ℹ Acerca de", command=self.abrir_ventana_acerca).pack(fill=X, pady=5)
+        
+        # Botón Toggle
+        self.btn_toggle_menu = ttk.Button(self.root, text="☰", command=self.toggle_menu)
+        self.btn_toggle_menu.place(x=10, y=10)
+        #"""Dibuja una línea vertical para separar el menú de la imagen central"""
+        self.separador = ttk.Separator(self.root, orient="vertical")
+        self.separador.place(x=180, y=0, relheight=1)  # Línea vertical a la derecha del menú
     
-    def mostrar_menu_bajo_boton(self, boton, menu): #metodo para mostrar un menu bajo un boton
-        x = boton.winfo_rootx()
-        y = boton.winfo_rooty() + boton.winfo_height()
-        menu.tk_popup(x, y)
+    def toggle_menu(self):
+        #"""Muestra u oculta el menú lateral"""
+        if self.menu_visible:
+            self.frame_menu.pack_forget()
+        else:
+            self.frame_menu.pack(side=LEFT, fill=Y)
+        self.menu_visible = not self.menu_visible
+        
 
-    def abrir_ventana_acerca(self): #metodo para abrir la ventana acerca de
+    def agregar_imagen_centrada(self):
+        #Carga y muestra una imagen PNG en el centro de la ventana principal
+        try:
+            # Cargar la imagen
+            imagen_original = Image.open("view/resources/logo.png")  # Cambia esto a la ruta de tu imagen
+            imagen_resized = imagen_original.resize((600, 600), Image.Resampling.LANCZOS)  # Ajusta el tamaño si es necesario
+            
+            # Convertir para Tkinter
+            self.imagen_tk = ImageTk.PhotoImage(imagen_resized)
+
+            # Crear Label con la imagen
+            self.label_imagen = ttk.Label(self.root, image=self.imagen_tk)
+            self.label_imagen.place(relx=0.6, rely=0.5, anchor="center")  # Centrar en la ventana
+            print("Imagen Cargada")
+
+        except Exception as e:
+            print("Error al cargar la imagen:", e)
+
+    def abrir_ventana_acerca(self):
         VentanaAcerca(self.root)
 
-    def abrir_ventana_precio(self): #metodo para abrir la ventana de precio
+    def abrir_ventana_precio(self):
         VentanaPrecio(self.root, self.servidor)
-    
-    def abrir_ventana_celular(self): #metodo para abrir la ventana de celular
+
+    def abrir_ventana_celular(self):
         FormularioCelular(self.root, self.servidor)
 
-    def abrir_ventana_computador(self): #metodo para abrir la ventana de computador
+    def abrir_ventana_computador(self):
         FormularioComputador(self.root, self.servidor)
 
-    def abrir_ventana_listar(self): #metodo para abrir la ventana de listar
+    def abrir_ventana_listar(self):
         VentanaListar(self.root, self.servidor)
 
-    def abrir_ventana_precio_computadores(self): #metodo para abrir la ventana de precio de computadores
+    def abrir_ventana_precio_computadores(self):
         VentanaPrecioComputadores(self.root, self.servidor)
-        
-    def abrir_ventana_precio_celulares(self): #metodo para abrir la ventana de precio de celulares
+
+    def abrir_ventana_precio_celulares(self):
         VentanaPrecioCelulares(self.root, self.servidor)
-        
-    def abrir_ventana_buscar_celular(self): #metodo para abrir la ventana de buscar celular
+
+    def abrir_ventana_buscar_celular(self):
         VentanaBuscarCelular(self.root, self.servidor)
-    
-    def abrir_ventana_buscar_computador(self): #metodo para abrir la ventana de buscar computador
+
+    def abrir_ventana_buscar_computador(self):
         VentanaBuscarComputador(self.root, self.servidor)
-    
-    def abrir_ventana_eliminar_celular(self): #metodo para abrir la ventana de eliminar celular
+
+    def abrir_ventana_eliminar_celular(self):
         VentanaEliminarCelular(self.root, self.servidor)
-        
-    def abrir_ventana_eliminar_computador(self): #metodo para abrir la ventana de eliminar computador
+
+    def abrir_ventana_eliminar_computador(self):
         VentanaEliminarComputador(self.root, self.servidor)
     
     def generar_datos_prueba(self): #metodo para generar datos de prueba para la tienda
@@ -151,16 +171,19 @@ class TiendaApp: #Clase que controla la ventana principal de la tienda
         self.servidor.agregar_celular("Sony Xperia 5 II", "Smartphone con pantalla 120Hz", 949, 35, "Sony", 128, "2020-09-29")
         self.servidor.agregar_celular("Motorola Edge+", "Smartphone con pantalla OLED", 999, 30, "Motorola", 256, "2020-04-22")
         self.servidor.agregar_celular("Asus ROG Phone 5", "Smartphone gamer con gran batería", 1099, 25, "Asus", 512, "2021-03-10")
-       
-    def centrar_ventana(self, ventana): #metodo para centrar la ventana respecto a la pantalla
-        ventana.update_idletasks()  # Actualizar la geometría de la ventana
-        ancho = ventana.winfo_width()
-        alto = ventana.winfo_height()
-        x = (ventana.winfo_screenwidth() // 2) - (ancho // 2)
-        y = (ventana.winfo_screenheight() // 2) - (alto // 2)
-        ventana.geometry(f"{ancho}x{alto}+{x}+{y}")
+        print("Productos agregados correctamente.")
 
-if __name__ == "__main__": #metodo main para correr la aplicacion
-    root = Tk()
+    def centrar_ventana(self):
+        #"""Centrar la ventana en la pantalla"""
+        self.root.update_idletasks()
+        ancho = 1000
+        alto = 600
+        x = (self.root.winfo_screenwidth() // 2) - (ancho // 2)
+        y = (self.root.winfo_screenheight() // 2) - (alto // 2)
+        self.root.geometry(f"{ancho}x{alto}+{x}+{y}")
+
+if __name__ == "__main__":
+    
+    root = ttk.Window(themename="superhero")  # Cambia el tema según prefieras
     app = TiendaApp(root)
     root.mainloop()
