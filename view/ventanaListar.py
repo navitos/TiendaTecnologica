@@ -128,6 +128,7 @@ class VentanaListar:
             self.pagina_actual += 1
             self.mostrar_pagina()
 
-    def actualizar(mensaje):
+    def actualizar(self, mensaje):
         print("notificacion")
-        mostrar_pagina()
+        self.mostrar_pagina()
+        
