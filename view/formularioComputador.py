@@ -65,7 +65,7 @@ class FormularioComputador:
 
             # Llamar al método agregar_computador del controlador de tienda
             self.servicio.agregar_computador(nombre, descripcion, precio, stock, marca, grafica, ram)
-            self.servicio.get_producto(-1)
+            self.servicio.mostrar_productos()
             # Mostrar mensaje de éxito
             messagebox.showinfo("Éxito", "Computador agregado correctamente")
             
