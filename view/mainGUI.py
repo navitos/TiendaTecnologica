@@ -12,8 +12,7 @@ from services.controladorTienda import ControladorTienda
 from view.ventanaPrecio import VentanaPrecio
 from view.vetanaBuscarCelular import VentanaBuscarCelular
 from view.ventanaBuscarComputador import VentanaBuscarComputador
-from view.ventanaEliminarCelular import VentanaEliminarCelular
-from view.ventanaEliminarComputador import VentanaEliminarComputador
+
 #from tkinter import ttk
 from PIL import Image, ImageTk
 
@@ -139,12 +138,6 @@ class TiendaApp:
 
     def abrir_ventana_buscar_computador(self):
         VentanaBuscarComputador(self.root, self.servidor)
-
-    def abrir_ventana_eliminar_celular(self):
-        VentanaEliminarCelular(self.root, self.servidor)
-
-    def abrir_ventana_eliminar_computador(self):
-        VentanaEliminarComputador(self.root, self.servidor)
 
     def abrir_ventana_listar_computadores(self):
         VentanaListarComputadores(self.root, self.servidor)
