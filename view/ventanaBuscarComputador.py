@@ -137,7 +137,7 @@ class VentanaBuscarComputador:
             self.computador_encontrado.set_grafica(nueva_grafica)
             self.computador_encontrado.set_ram(nueva_ram)
 
-            self.controlador_tienda.observable.notificar_observadores_celular("notificacion")
+            self.controlador_tienda.observable.notificar_observadores_computador("notificacion")
             self.controlador_tienda.observable.notificar_observadores("notificacion")
 
             # Mostrar mensaje de éxito
@@ -163,7 +163,7 @@ class VentanaBuscarComputador:
             # Eliminar el celular
             self.controlador_tienda.eliminar_producto(computador)
 
-            self.controlador_tienda.observable.notificar_observadores_celular("notificacion")
+            self.controlador_tienda.observable.notificar_observadores_computador("notificacion")
             self.controlador_tienda.observable.notificar_observadores("notificacion")
 
             messagebox.showinfo("Éxito", f"El celular '{nombre}' ha sido eliminado.")
