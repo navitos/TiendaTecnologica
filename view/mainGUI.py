@@ -13,10 +13,12 @@ from services.controladorTienda import ControladorTienda
 from view.ventanaPrecio import VentanaPrecio
 from view.vetanaBuscarCelular import VentanaBuscarCelular
 from view.ventanaBuscarComputador import VentanaBuscarComputador
+from services.observable import Observable
 #from tkinter import ttk
 from PIL import Image, ImageTk
 
 class TiendaApp:
+
     def __init__(self, root):
         self.menu_visible = True
         self.root = root
@@ -28,14 +30,16 @@ class TiendaApp:
         self.root.style.theme_use("cosmo")
 
         self.servidor = ControladorTienda([])
+        self.servidor.observable.agregar_observador(self)  # Agregar TiendaApp como observador
         self.crear_menu()
         
         self.crear_menu_lateral()
         self.generar_datos_prueba()
         self.agregar_imagen_centrada()
         self.centrar_ventana()
-        
 
+    def actualizar(self, mensaje):
+        print(f"Notificación recibida")  # Puedes actualizar la UI aquí
 
     def crear_menu(self):
         menubar = ttk.Menu(self.root)
@@ -140,9 +144,11 @@ class TiendaApp:
 
     def abrir_ventana_listar_computadores(self):
         VentanaListarComputadores(self.root, self.servidor)
+        self.servidor.observable.notificar_observadores(f"Nuevo computador agregado")
 
     def abrir_ventana_listar_celulares(self):
         VentanaListarCelulares(self.root, self.servidor)
+        self.servidor.observable.notificar_observadores(f"Nuevo celular agregado")
 
     
     def generar_datos_prueba(self): #metodo para generar datos de prueba para la tienda
