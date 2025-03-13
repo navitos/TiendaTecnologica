@@ -44,7 +44,6 @@ class TiendaApp:
         menu_celular = ttk.Menu(menubar, tearoff=0)
         menu_celular.add_command(label="Añadir Celular", command=self.abrir_ventana_celular)
         menu_celular.add_command(label="Consultar Celular", command=self.abrir_ventana_buscar_celular)
-        menu_celular.add_command(label="Eliminar Celular", command=self.abrir_ventana_eliminar_celular)
         menu_celular.add_command(label="Calcular Precio", command=self.abrir_ventana_precio_celulares)
         menubar.add_cascade(label="📱 Celulares", menu=menu_celular)
 
@@ -52,7 +51,6 @@ class TiendaApp:
         menu_computador = ttk.Menu(menubar, tearoff=0)
         menu_computador.add_command(label="Añadir Computador", command=self.abrir_ventana_computador)
         menu_computador.add_command(label="Consultar Computador", command=self.abrir_ventana_buscar_computador)
-        menu_computador.add_command(label="Eliminar Computador", command=self.abrir_ventana_eliminar_computador)
         menu_computador.add_command(label="Calcular Precio", command=self.abrir_ventana_precio_computadores)
         menu_computador.add_command(label="Listar Computadores", command=self.abrir_ventana_listar_computadores)
         menubar.add_cascade(label="💻 Computadores", menu=menu_computador)
