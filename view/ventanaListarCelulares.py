@@ -10,9 +10,9 @@ class VentanaListarCelulares:
 
         self.ventana = Toplevel(self.root)
         self.ventana.title("Listar Celulares")
-        self.ventana.minsize(width=900, height=300)
-        self.ventana.resizable(False, False)  # Hacerla no redimensionable
+        self.ventana.minsize(width=800, height=300)
         self.centrar_ventana(self.ventana)  # Centrar la ventana
+        self.ventana.resizable(False, False)  # Hacerla no redimensionable
 
         # Crear un frame para contener la tabla y las barras de desplazamiento
         self.frame_tabla = Frame(self.ventana)
@@ -24,7 +24,7 @@ class VentanaListarCelulares:
         self.tabla.pack(side=LEFT, fill=BOTH, expand=True)
 
         # Configurar las columnas
-        anchos_columnas = [150, 200, 80, 50, 100, 80, 80]
+        anchos_columnas = [150, 200, 80, 50, 100, 80, 120]
         for col, ancho in zip(columnas, anchos_columnas):
             self.tabla.heading(col, text=col)
             self.tabla.column(col, width=ancho, anchor="center")
@@ -39,7 +39,7 @@ class VentanaListarCelulares:
         self.frame_paginacion.pack(pady=10)
 
         self.pagina_actual = 1
-        self.elementos_por_pagina = 15  # Mostrar 5 elementos por página
+        self.elementos_por_pagina = 10  # Mostrar 5 elementos por página
 
         self.btn_anterior = Button(self.frame_paginacion, text="Anterior", command=self.pagina_anterior)
         self.btn_anterior.pack(side=LEFT, padx=5)
@@ -58,28 +58,32 @@ class VentanaListarCelulares:
         y = (ventana.winfo_screenheight() // 2) - (alto // 2)
         ventana.geometry(f"{ancho}x{alto}+{x}+{y}")
 
+    def obtener_celulares(self):
+        # Filtrar solo los celulares de la lista de productos
+        return [producto for producto in self.controlador_tienda.productos if isinstance(producto, Celular)]
+
     def mostrar_pagina(self):
         # Limpiar la tabla
         for row in self.tabla.get_children():
             self.tabla.delete(row)
 
-        # Obtener los computadores de la página actual
+        # Obtener los celulares de la página actual
+        celulares = self.obtener_celulares()
         inicio = (self.pagina_actual - 1) * self.elementos_por_pagina
         fin = inicio + self.elementos_por_pagina
-        celulares_pagina = self.controlador_tienda.productos[inicio:fin]
+        celulares_pagina = celulares[inicio:fin]
 
-        # Agregar los computadores a la tabla
-        for producto in celulares_pagina:
-            if isinstance(producto, Celular): 
-                self.tabla.insert("", END, values=(
-                    producto.get_nombre(),
-                    producto.get_descripcion(),
-                    f"${producto.get_precio():.2f}",
-                    producto.get_stock(),
-                    producto.get_marca(),
-                    producto.get_capacidad(),
-                    f"{producto.get_fechaLanzamiento} ",
-                ))
+        # Agregar los celulares a la tabla
+        for celular in celulares_pagina:
+            self.tabla.insert("", END, values=(
+                celular.get_nombre(),
+                celular.get_descripcion(),
+                f"${celular.get_precio():.2f}",
+                celular.get_stock(),
+                celular.get_marca(),
+                f"{celular.get_capacidad()} GB",
+                celular.get_fechaLanzamiento()
+            ))
 
     def pagina_anterior(self):
         if self.pagina_actual > 1:
@@ -87,7 +91,8 @@ class VentanaListarCelulares:
             self.mostrar_pagina()
 
     def pagina_siguiente(self):
-        total_paginas = (len(self.controlador_tienda.productos) // self.elementos_por_pagina) + 1
+        celulares = self.obtener_celulares()
+        total_paginas = (len(celulares) // self.elementos_por_pagina) + 1
         if self.pagina_actual < total_paginas:
             self.pagina_actual += 1
             self.mostrar_pagina()
