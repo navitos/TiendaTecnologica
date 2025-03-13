@@ -10,7 +10,7 @@ class VentanaListarComputadores:
 
         self.ventana = Toplevel(self.root)
         self.ventana.title("Listar Computadores")
-        self.ventana.minsize(width=800, height=300)
+        self.ventana.minsize(width=850, height=300)
         self.centrar_ventana(self.ventana)  # Centrar la ventana
         self.ventana.resizable(False, False)  # Hacerla no redimensionable
 
@@ -19,12 +19,12 @@ class VentanaListarComputadores:
         self.frame_tabla.pack(fill=BOTH, expand=True, padx=10, pady=10)
 
         # Crear un Treeview para mostrar la tabla
-        columnas = ("Nombre", "Descripción", "Precio", "Stock", "Marca", "Gráfica", "RAM")
+        columnas = ("Nombre", "Descripción", "Precio", "Stock", "Marca", "Gráfica", "RAM", "Monitor")
         self.tabla = ttk.Treeview(self.frame_tabla, columns=columnas, show="headings")
         self.tabla.pack(side=LEFT, fill=BOTH, expand=True)
 
         # Configurar las columnas
-        anchos_columnas = [150, 200, 80, 50, 100, 80, 50]
+        anchos_columnas = [150, 200, 80, 50, 100, 80, 50,100]
         for col, ancho in zip(columnas, anchos_columnas):
             self.tabla.heading(col, text=col)
             self.tabla.column(col, width=ancho, anchor="center")
@@ -83,7 +83,8 @@ class VentanaListarComputadores:
                 computador.get_stock(),
                 computador.get_marca(),
                 computador.get_grafica(),
-                f"{computador.get_ram()} GB"
+                f"{computador.get_ram()} GB",
+                f"{computador.get_monitor().get_frecuencia()} Hz"
                 
             ))
 

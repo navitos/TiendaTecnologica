@@ -1,6 +1,8 @@
 from model.computador import Computador
 from tkinter import END, Frame, Toplevel, Label, Entry, Button, messagebox
 
+from view.ventanaActualizarMonitor import VentanaActualizarMonitor
+
 class VentanaBuscarComputador:
     def __init__(self, root, controlador_tienda):
         self.root = root
@@ -9,7 +11,7 @@ class VentanaBuscarComputador:
         # Crear la ventana emergente
         self.ventana = Toplevel(self.root)
         self.ventana.title("Consultar Computador")
-        self.ventana.minsize(width=400, height=500)
+        self.ventana.minsize(width=400, height=600)
         self.centrar_ventana(self.ventana)  # Centrar la ventana
         self.ventana.resizable(False, False)  # Hacerla no redimensionable
 
@@ -62,6 +64,12 @@ class VentanaBuscarComputador:
 
         # Variable para almacenar el computador encontrado
         self.computador_encontrado = None
+        
+        # Botón para actualizar monitor
+        self.btn_actualizar_monitor = Button(self.ventana, text="Actualizar Monitor", 
+                                           font=("Arial", 12), command=self.abrir_ventana_actualizar_monitor)
+        self.btn_actualizar_monitor.pack(pady=5)
+        self.btn_actualizar_monitor.config(state="disabled")
 
     def centrar_ventana(self, ventana):
         ventana.update_idletasks()  # Actualizar la geometría de la ventana
@@ -94,6 +102,7 @@ class VentanaBuscarComputador:
             self.entry_nueva_marca.insert(0, self.computador_encontrado.get_marca())
             self.entry_nueva_grafica.insert(0, self.computador_encontrado.get_grafica())
             self.entry_nueva_ram.insert(0, str(self.computador_encontrado.get_ram()))
+            self.btn_actualizar_monitor.config(state="normal")  # Habilitar nuevo botón
         else:
             messagebox.showinfo("Información", f"No se encontró un computador con el nombre '{nombre}'.")
             self.btn_actualizar.config(state="disabled")  # Deshabilitar el botón si no se encuentra el computador
@@ -171,5 +180,17 @@ class VentanaBuscarComputador:
 
         # Reiniciar la variable del computador encontrado
         self.computador_encontrado = None
-
+    
+    def abrir_ventana_actualizar_monitor(self):
+        VentanaActualizarMonitor(
+            self.root,
+            self.controlador_tienda,
+            self.computador_encontrado,
+            self.actualizar_vista
+            
+        )
+        
+    def actualizar_vista(self):  
+        self.controlador_tienda.observable.notificar_observadores_computador("notificacion")
+        self.controlador_tienda.observable.notificar_observadores("notificacion")
     

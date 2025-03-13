@@ -62,7 +62,7 @@ class TiendaApp:
         # Menú Computadores
         menu_computador = ttk.Menu(menubar, tearoff=0)
         menu_computador.add_command(label="Añadir Computador", command=self.abrir_ventana_computador)
-        menu_computador.add_command(label="Consultar Computador", command=self.abrir_ventana_buscar_computador)
+        menu_computador.add_command(label="Consultar computador", command=self.abrir_ventana_buscar_computador)
         menu_computador.add_command(label="Calcular Precio", command=self.abrir_ventana_precio_computadores)
         menu_computador.add_command(label="Listar Computadores", command=self.abrir_ventana_listar_computadores)
         menubar.add_cascade(label="💻 Computadores", menu=menu_computador)
