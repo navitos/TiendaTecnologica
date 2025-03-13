@@ -11,8 +11,8 @@ class VentanaListarComputadores:
         self.ventana = Toplevel(self.root)
         self.ventana.title("Listar Computadores")
         self.ventana.minsize(width=800, height=300)
-        self.ventana.resizable(False, False)  # Hacerla no redimensionable
         self.centrar_ventana(self.ventana)  # Centrar la ventana
+        self.ventana.resizable(False, False)  # Hacerla no redimensionable
 
         # Crear un frame para contener la tabla y las barras de desplazamiento
         self.frame_tabla = Frame(self.ventana)
@@ -39,7 +39,7 @@ class VentanaListarComputadores:
         self.frame_paginacion.pack(pady=10)
 
         self.pagina_actual = 1
-        self.elementos_por_pagina = 10  # Mostrar 5 elementos por página
+        self.elementos_por_pagina = 15  # Mostrar 5 elementos por página
 
         self.btn_anterior = Button(self.frame_paginacion, text="Anterior", command=self.pagina_anterior)
         self.btn_anterior.pack(side=LEFT, padx=5)
@@ -58,28 +58,33 @@ class VentanaListarComputadores:
         y = (ventana.winfo_screenheight() // 2) - (alto // 2)
         ventana.geometry(f"{ancho}x{alto}+{x}+{y}")
 
+    def obtener_computadores(self):
+        # Filtrar solo los computadores de la lista de productos
+        return [producto for producto in self.controlador_tienda.productos if isinstance(producto, Computador)]
+
     def mostrar_pagina(self):
         # Limpiar la tabla
         for row in self.tabla.get_children():
             self.tabla.delete(row)
 
         # Obtener los computadores de la página actual
+        computadores = self.obtener_computadores()
         inicio = (self.pagina_actual - 1) * self.elementos_por_pagina
         fin = inicio + self.elementos_por_pagina
-        computadores_pagina = self.controlador_tienda.productos[inicio:fin]
+        computadores_pagina = computadores[inicio:fin]
 
         # Agregar los computadores a la tabla
-        for producto in computadores_pagina:
-            if isinstance(producto, Computador):  # Verificar si es un computador
-                self.tabla.insert("", END, values=(
-                    producto.get_nombre(),
-                    producto.get_descripcion(),
-                    f"${producto.get_precio():.2f}",
-                    producto.get_stock(),
-                    producto.get_marca(),
-                    producto.get_grafica(),
-                    f"{producto.get_ram()} GB",
-                ))
+        for computador in computadores_pagina:
+            self.tabla.insert("", END, values=(
+                computador.get_nombre(),
+                computador.get_descripcion(),
+                f"${computador.get_precio():.2f}",
+                computador.get_stock(),
+                computador.get_marca(),
+                computador.get_grafica(),
+                f"{computador.get_ram()} GB"
+                
+            ))
 
     def pagina_anterior(self):
         if self.pagina_actual > 1:
@@ -87,7 +92,8 @@ class VentanaListarComputadores:
             self.mostrar_pagina()
 
     def pagina_siguiente(self):
-        total_paginas = (len(self.controlador_tienda.productos) // self.elementos_por_pagina) + 1
+        computadores = self.obtener_computadores()
+        total_paginas = (len(computadores) // self.elementos_por_pagina) + 1
         if self.pagina_actual < total_paginas:
             self.pagina_actual += 1
             self.mostrar_pagina()
