@@ -9,7 +9,7 @@ class VentanaBuscarComputador:
         # Crear la ventana emergente
         self.ventana = Toplevel(self.root)
         self.ventana.title("Consultar Computador")
-        self.ventana.minsize(width=400, height=400)
+        self.ventana.minsize(width=400, height=500)
         self.centrar_ventana(self.ventana)  # Centrar la ventana
         self.ventana.resizable(False, False)  # Hacerla no redimensionable
 
@@ -22,9 +22,6 @@ class VentanaBuscarComputador:
         Button(self.ventana, text="Buscar", font=("Arial", 12), command=self.buscar_computador).pack(pady=10)
         Button(self.ventana, text="Eliminar", font=("Arial", 12), command=self.eliminar_computador).pack(pady=10)
 
-        # Etiqueta para mostrar los atributos del computador
-        self.label_resultado = Label(self.ventana, text="", font=("Arial", 12))
-        self.label_resultado.pack(pady=10)
 
         # Campos de entrada para actualizar los atributos
         self.frame_actualizar = Frame(self.ventana)
@@ -85,17 +82,6 @@ class VentanaBuscarComputador:
         self.computador_encontrado = self.controlador_tienda.buscar_producto(nombre)
 
         if self.computador_encontrado and isinstance(self.computador_encontrado, Computador):  # Verificar si es un computador
-            # Mostrar los atributos del computador
-            atributos = (
-                f"Nombre: {self.computador_encontrado.get_nombre()}\n"
-                f"Descripción: {self.computador_encontrado.get_descripcion()}\n"
-                f"Precio: ${self.computador_encontrado.get_precio():.2f}\n"
-                f"Stock: {self.computador_encontrado.get_stock()}\n"
-                f"Marca: {self.computador_encontrado.get_marca()}\n"
-                f"Gráfica: {self.computador_encontrado.get_grafica()}\n"
-                f"RAM: {self.computador_encontrado.get_ram()} GB"
-            )
-            self.label_resultado.config(text=atributos)
 
             # Habilitar el botón de actualizar
             self.btn_actualizar.config(state="normal")
@@ -143,8 +129,6 @@ class VentanaBuscarComputador:
             # Mostrar mensaje de éxito
             messagebox.showinfo("Éxito", "El computador ha sido actualizado correctamente.")
 
-            # Actualizar la etiqueta con los nuevos atributos
-            self.buscar_computador()  # Volver a buscar para actualizar la vista
 
         except ValueError as e:
             messagebox.showerror("Error", f"Datos inválidos: {str(e)}")
