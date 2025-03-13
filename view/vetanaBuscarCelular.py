@@ -1,4 +1,4 @@
-from tkinter import Frame, Toplevel, Label, Entry, Button, messagebox
+from tkinter import END, Frame, Toplevel, Label, Entry, Button, messagebox
 
 from model.celular import Celular
 
@@ -98,7 +98,6 @@ class VentanaBuscarCelular:
             self.entry_nueva_fechaLanzamiento.insert(0, self.celular_encontrado.get_fechaLanzamiento())
         else:
             messagebox.showinfo("Información", f"No se encontró un celular con el nombre '{nombre}'.")
-            self.label_resultado.config(text="")
             self.btn_actualizar.config(state="disabled")  # Deshabilitar el botón si no se encuentra el celular
 
     def actualizar_celular(self):
@@ -150,16 +149,26 @@ class VentanaBuscarCelular:
             self.controlador_tienda.observable.notificar_observadores_celular("notificacion")
             self.controlador_tienda.observable.notificar_observadores("notificacion")
 
-            # Llenar los campos de actualización con los valores actuales
-            self.entry_nuevo_nombre.insert(0, " ")
-            self.entry_nueva_descripcion.insert(0, " ")
-            self.entry_nuevo_precio.insert(0, " ")
-            self.entry_nuevo_stock.insert(0, " ")
-            self.entry_nueva_marca.insert(0, " ")
-            self.entry_nueva_capacidad.insert(0, " ")
-            self.entry_nueva_fechaLanzamiento.insert(0, " ")
 
             messagebox.showinfo("Éxito", f"El celular '{nombre}' ha sido eliminado.")
+
+            self.limpiar_campos()
             
         else:
             messagebox.showinfo("Información", f"No se encontró un celular con el nombre '{nombre}'.")
+
+    def limpiar_campos(self):
+        # Limpiar los campos de entrada
+        self.entry_nuevo_nombre.delete(0, END)
+        self.entry_nueva_descripcion.delete(0, END)
+        self.entry_nuevo_precio.delete(0, END)
+        self.entry_nuevo_stock.delete(0, END)
+        self.entry_nueva_marca.delete(0, END)
+        self.entry_nueva_fechaLanzamiento.delete(0, END)
+        self.entry_nueva_capacidad.delete(0, END)
+
+        # Deshabilitar los botones de actualizar y eliminar
+        self.btn_actualizar.config(state="disabled")
+
+        # Reiniciar la variable del computador encontrado
+        self.celular_encontrado = None

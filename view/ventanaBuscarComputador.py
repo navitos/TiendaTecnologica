@@ -1,5 +1,5 @@
 from model.computador import Computador
-from tkinter import Frame, Toplevel, Label, Entry, Button, messagebox
+from tkinter import END, Frame, Toplevel, Label, Entry, Button, messagebox
 
 class VentanaBuscarComputador:
     def __init__(self, root, controlador_tienda):
@@ -96,7 +96,6 @@ class VentanaBuscarComputador:
             self.entry_nueva_ram.insert(0, str(self.computador_encontrado.get_ram()))
         else:
             messagebox.showinfo("Información", f"No se encontró un computador con el nombre '{nombre}'.")
-            self.label_resultado.config(text="")
             self.btn_actualizar.config(state="disabled")  # Deshabilitar el botón si no se encuentra el computador
 
     def actualizar_computador(self):
@@ -150,9 +149,27 @@ class VentanaBuscarComputador:
             self.controlador_tienda.observable.notificar_observadores_computador("notificacion")
             self.controlador_tienda.observable.notificar_observadores("notificacion")
 
-            messagebox.showinfo("Éxito", f"El celular '{nombre}' ha sido eliminado.")
+            messagebox.showinfo("Éxito", f"El computador '{nombre}' ha sido eliminado.")
+
+            self.limpiar_campos()
             
         else:
-            messagebox.showinfo("Información", f"No se encontró un celular con el nombre '{nombre}'.")
+            messagebox.showinfo("Información", f"No se encontró un computador con el nombre '{nombre}'.")
+
+    def limpiar_campos(self):
+        # Limpiar los campos de entrada
+        self.entry_nuevo_nombre.delete(0, END)
+        self.entry_nueva_descripcion.delete(0, END)
+        self.entry_nuevo_precio.delete(0, END)
+        self.entry_nuevo_stock.delete(0, END)
+        self.entry_nueva_marca.delete(0, END)
+        self.entry_nueva_grafica.delete(0, END)
+        self.entry_nueva_ram.delete(0, END)
+
+        # Deshabilitar los botones de actualizar y eliminar
+        self.btn_actualizar.config(state="disabled")
+
+        # Reiniciar la variable del computador encontrado
+        self.computador_encontrado = None
 
     
