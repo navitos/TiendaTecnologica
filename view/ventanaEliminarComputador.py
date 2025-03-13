@@ -15,7 +15,7 @@ class VentanaEliminarComputador:
         self.centrar_ventana(self.ventana)  # Centrar la ventana
 
         # Campo de entrada para el nombre del celular
-        Label(self.ventana, text="Nombre del celular:", font=("Arial", 10)).pack(pady=10)
+        Label(self.ventana, text="Nombre del computador:", font=("Arial", 10)).pack(pady=10)
         self.entry_nombre = Entry(self.ventana, font=("Arial", 10))
         self.entry_nombre.pack(pady=5)
 

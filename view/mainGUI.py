@@ -5,6 +5,7 @@ from view.formularioCelular import FormularioCelular
 from view.formularioComputador import FormularioComputador
 from view.ventanaListar import VentanaListar
 from view.ventanaAcerca import VentanaAcerca
+from view.ventanaListarComputadores import VentanaListarComputadores
 from view.ventanaPrecioComputadores import VentanaPrecioComputadores
 from view.ventanaPrecioCelulares import VentanaPrecioCelulares
 from services.controladorTienda import ControladorTienda
@@ -23,9 +24,7 @@ class TiendaApp:
         self.root.title("Tienda Tecnológica")
         self.root.geometry("1000x600")  
         self.root.resizable(True, True)
-        self.centrar_ventana()
         
-        # Aplicar tema de ttkbootstrap (ej: "darkly", "superhero", "solar")
         self.root.style = ttk.Style()  
         self.root.style.theme_use("cosmo")
 
@@ -35,11 +34,11 @@ class TiendaApp:
         self.crear_menu_lateral()
         self.generar_datos_prueba()
         self.agregar_imagen_centrada()
+        self.centrar_ventana()
         
 
 
     def crear_menu(self):
-        #"""Crea un menú superior con un diseño mejorado"""
         menubar = ttk.Menu(self.root)
 
         # Menú Celulares
@@ -56,12 +55,11 @@ class TiendaApp:
         menu_computador.add_command(label="Consultar Computador", command=self.abrir_ventana_buscar_computador)
         menu_computador.add_command(label="Eliminar Computador", command=self.abrir_ventana_eliminar_computador)
         menu_computador.add_command(label="Calcular Precio", command=self.abrir_ventana_precio_computadores)
+        menu_computador.add_command(label="Listar Computadores", command=self.abrir_ventana_listar_computadores)
         menubar.add_cascade(label="💻 Computadores", menu=menu_computador)
 
         # Menú Otras Opciones
         menu_otras = ttk.Menu(menubar, tearoff=0)
-        menu_otras.add_command(label="📜 Listar Productos", command=self.abrir_ventana_listar)
-        menu_otras.add_command(label="💰 Calcular Precio Total", command=self.abrir_ventana_precio)
         menu_otras.add_separator()
         menu_otras.add_command(label="ℹ Acerca de", command=self.abrir_ventana_acerca)
         menubar.add_cascade(label="🔧 Más Opciones", menu=menu_otras)
@@ -77,8 +75,6 @@ class TiendaApp:
         self.frame_botones = ttk.Frame(self.frame_menu)
         self.frame_botones.pack(side=TOP, pady=50)  # Ajusta `pady` para mover más abajo
 
-        ttk.Button(self.frame_botones, text="📱 Añadir Celular", command=self.abrir_ventana_celular).pack(fill=X, pady=5)
-        ttk.Button(self.frame_botones, text="💻 Añadir Computador", command=self.abrir_ventana_computador).pack(fill=X, pady=5)
         ttk.Button(self.frame_botones, text="📜 Listar Productos", command=self.abrir_ventana_listar).pack(fill=X, pady=5)
         ttk.Button(self.frame_botones, text="💰 Calcular Precio", command=self.abrir_ventana_precio).pack(fill=X, pady=5)
         ttk.Button(self.frame_botones, text="ℹ Acerca de", command=self.abrir_ventana_acerca).pack(fill=X, pady=5)
@@ -149,6 +145,9 @@ class TiendaApp:
 
     def abrir_ventana_eliminar_computador(self):
         VentanaEliminarComputador(self.root, self.servidor)
+
+    def abrir_ventana_listar_computadores(self):
+        VentanaListarComputadores(self.root, self.servidor)
     
     def generar_datos_prueba(self): #metodo para generar datos de prueba para la tienda
         self.servidor.agregar_computador("Dell XPS 13", "Computadora ultradelgada", 1199, 20, "Dell", "Intel Iris Xe", 16)

@@ -44,7 +44,7 @@ class VentanaListar:
         frame_paginacion.pack(pady=10)
 
         self.pagina_actual = 1
-        self.elementos_por_pagina = 10
+        self.elementos_por_pagina = 20
 
         self.btn_anterior = ttk.Button(frame_paginacion, text="◄ Anterior", command=self.pagina_anterior, style="Boton.TButton")
         self.btn_anterior.pack(side=LEFT, padx=10)
