@@ -2,11 +2,13 @@ from model.celular import Celular
 from model.computador import Computador
 from model.productoTecnologico import ProductoTecnologico
 from model.monitor import Monitor
+from services.Observable import Observable
 
 #Clase que controla la tienda tecnologica
 class ControladorTienda:
     def __init__(self, productos): #constructor de la clase controladorTienda
         self.productos = productos
+        self.observable = Observable()
 
     def agregar_celular(self, nombre, descripcion, precio, stock, marca, capacidad, fechaLanzamiento): #metodo para agregar un celular a la tienda, que recibe los atributos del celular y lo agrega a la lista
         try:
@@ -67,5 +69,3 @@ class ControladorTienda:
             if isinstance(i, Computador):
                 total += i.calcularPrecio() * i.get_stock()
         return total
-
-

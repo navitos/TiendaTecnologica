@@ -2,6 +2,8 @@ from tkinter import Toplevel, Frame, Button, BOTH, LEFT, RIGHT, Y, X, END
 from tkinter import ttk
 
 from model.celular import Celular
+from services.Observable import Observable
+from services.controladorTienda import ControladorTienda
 
 class VentanaListarCelulares:
     def __init__(self, root, controlador_tienda):
@@ -46,6 +48,8 @@ class VentanaListarCelulares:
 
         self.btn_siguiente = Button(self.frame_paginacion, text="Siguiente", command=self.pagina_siguiente)
         self.btn_siguiente.pack(side=LEFT, padx=5)
+
+        self.controlador_tienda.observable.agregar_observador(self)
 
         # Mostrar la primera página
         self.mostrar_pagina()
@@ -96,3 +100,7 @@ class VentanaListarCelulares:
         if self.pagina_actual < total_paginas:
             self.pagina_actual += 1
             self.mostrar_pagina()
+
+    def actualizar(self, mensaje):
+        print("notificacion")
+        self.mostrar_pagina()

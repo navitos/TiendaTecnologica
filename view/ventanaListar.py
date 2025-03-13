@@ -1,5 +1,7 @@
 from tkinter import Toplevel, Frame, BOTH, LEFT, RIGHT, Y, END
 from tkinter import ttk
+from services.Observable import Observable
+from services.controladorTienda import ControladorTienda
 
 class VentanaListar:
     def __init__(self, root, controlador_tienda):
@@ -11,6 +13,7 @@ class VentanaListar:
         self.ventana.geometry("850x450")  
         self.ventana.resizable(False, False)
         self.centrar_ventana(self.ventana)
+        self.controlador_tienda.observable.agregar_observador(self)
 
         # Aplicar estilos personalizados
         self.estilizar_interfaz()
@@ -123,3 +126,7 @@ class VentanaListar:
         if self.pagina_actual < total_paginas:
             self.pagina_actual += 1
             self.mostrar_pagina()
+
+    def actualizar(self, mensaje):
+        print("notificacion")
+        self.mostrar_pagina()

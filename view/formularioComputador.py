@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
+from services.controladorTienda import ControladorTienda
+from services.Observable import Observable
 
 class FormularioComputador:
     def __init__(self, root, servicio):
@@ -63,12 +65,11 @@ class FormularioComputador:
 
             # Llamar al método agregar_computador del controlador de tienda
             self.servicio.agregar_computador(nombre, descripcion, precio, stock, marca, grafica, ram)
-            self.servicio.get_producto(-1)
+            self.servicio.mostrar_productos()
             # Mostrar mensaje de éxito
             messagebox.showinfo("Éxito", "Computador agregado correctamente")
             
-            # Cerrar la ventana después de guardar
-            self.nueva_ventana.destroy()
+            self.servicio.observable.notificar_observadores("notificacion")
         
         except ValueError as e:
             # Mostrar mensaje de error si hay un problema con los datos ingresados

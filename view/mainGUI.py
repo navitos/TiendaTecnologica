@@ -15,6 +15,7 @@ from view.vetanaBuscarCelular import VentanaBuscarCelular
 from view.ventanaBuscarComputador import VentanaBuscarComputador
 from model.empresaProTec import EmpresaProTec  # Importamos la clase Singleton
 from view.ventanaEmpresa import VentanaEmpresa  # Importamos la ventana
+from services.Observable import Observable
 #from tkinter import ttk
 from PIL import Image, ImageTk
 
@@ -38,11 +39,15 @@ class TiendaApp:
         self.centrar_ventana()
         
         self.empresa = EmpresaProTec("123456-7", "TechShop", "TechShop S.A.") #añadimos la ventana que contiene los datos de la empresa. 
+        self.servidor.observable.agregar_observador(self)  # Agregar TiendaApp como observador
 
 
     def abrir_ventana_empresa(self): #creamos la ventana emergente
         VentanaEmpresa(self.root, self.empresa)
     
+    def actualizar(self, mensaje):
+        print(f"Notificación recibida")  # Puedes actualizar la UI aquí
+
     def crear_menu(self):
         menubar = ttk.Menu(self.root)
 
