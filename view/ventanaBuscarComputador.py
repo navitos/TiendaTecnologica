@@ -20,6 +20,7 @@ class VentanaBuscarComputador:
 
         # Botón para buscar
         Button(self.ventana, text="Buscar", font=("Arial", 10), command=self.buscar_computador).pack(pady=10)
+        Button(self.ventana, text="Eliminar", font=("Arial", 10), command=self.eliminar_celular).pack(pady=10)
 
         # Etiqueta para mostrar los atributos del celular
         self.label_resultado = Label(self.ventana, text="", font=("Arial", 10))
@@ -32,6 +33,24 @@ class VentanaBuscarComputador:
         x = (ventana.winfo_screenwidth() // 2) - (ancho // 2)
         y = (ventana.winfo_screenheight() // 2) - (alto // 2)
         ventana.geometry(f"{ancho}x{alto}+{x}+{y}")
+
+    def eliminar_celular(self):
+        nombre = self.entry_nombre.get().strip()  # Obtener el nombre del computador
+
+        if not nombre:
+            messagebox.showwarning("Advertencia", "Por favor, ingresa el nombre del computador.")
+            return
+
+        # Buscar el computador en la lista
+        computador = self.controlador_tienda.buscar_producto(nombre)
+
+        if computador and isinstance(computador, Computador):  # Verificar si es un computador
+            # Eliminar el celular
+            self.controlador_tienda.eliminar_producto(computador)
+            messagebox.showinfo("Éxito", f"El celular '{nombre}' ha sido eliminado.")
+            
+        else:
+            messagebox.showinfo("Información", f"No se encontró un celular con el nombre '{nombre}'.")
 
     def buscar_computador(self):
         nombre = self.entry_nombre.get().strip()  # Obtener el nombre del celular
