@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from model.celular import Celular
 from services.controladorTienda import ControladorTienda
+from services.observable import Observable
 
 class FormularioCelular:
     def __init__(self, root, servicio):
@@ -68,8 +69,7 @@ class FormularioCelular:
             # Mostrar mensaje de éxito
             messagebox.showinfo("Éxito", "Celular agregado correctamente")
             
-            # Cerrar la ventana después de guardar
-            self.nueva_ventana.destroy()
+            self.servicio.observable.notificar_observadores("notificacion")
         
         except ValueError as e:
             # Mostrar mensaje de error si hay un problema con los datos ingresados

@@ -144,11 +144,11 @@ class TiendaApp:
 
     def abrir_ventana_listar_computadores(self):
         VentanaListarComputadores(self.root, self.servidor)
-        self.servidor.observable.notificar_observadores(f"Nuevo computador agregado")
+        #self.servidor.observable.notificar_observadores(f"Nuevo computador agregado")
 
     def abrir_ventana_listar_celulares(self):
         VentanaListarCelulares(self.root, self.servidor)
-        self.servidor.observable.notificar_observadores(f"Nuevo celular agregado")
+        #self.servidor.observable.notificar_observadores(f"Nuevo celular agregado")
 
     
     def generar_datos_prueba(self): #metodo para generar datos de prueba para la tienda

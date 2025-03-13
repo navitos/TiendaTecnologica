@@ -1,10 +1,14 @@
 from tkinter import Toplevel, Frame, BOTH, LEFT, RIGHT, Y, END
 from tkinter import ttk
+from services.observable import Observable
+from services.controladorTienda import ControladorTienda
 
 class VentanaListar:
     def __init__(self, root, controlador_tienda):
         self.root = root
         self.controlador_tienda = controlador_tienda
+
+        self.controlador_tienda.observable.agregar_observador(self)
 
         self.ventana = Toplevel(self.root)
         self.ventana.title("Lista de Productos")
@@ -123,3 +127,7 @@ class VentanaListar:
         if self.pagina_actual < total_paginas:
             self.pagina_actual += 1
             self.mostrar_pagina()
+
+    def actualizar(mensaje):
+        print("notificacion")
+        mostrar_pagina()
