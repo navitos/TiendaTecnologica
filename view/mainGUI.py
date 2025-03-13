@@ -13,6 +13,8 @@ from services.controladorTienda import ControladorTienda
 from view.ventanaPrecio import VentanaPrecio
 from view.vetanaBuscarCelular import VentanaBuscarCelular
 from view.ventanaBuscarComputador import VentanaBuscarComputador
+from model.empresaProTec import EmpresaProTec  # Importamos la clase Singleton
+from view.ventanaEmpresa import VentanaEmpresa  # Importamos la ventana
 #from tkinter import ttk
 from PIL import Image, ImageTk
 
@@ -35,8 +37,12 @@ class TiendaApp:
         self.agregar_imagen_centrada()
         self.centrar_ventana()
         
+        self.empresa = EmpresaProTec("123456-7", "TechShop", "TechShop S.A.") #añadimos la ventana que contiene los datos de la empresa. 
 
 
+    def abrir_ventana_empresa(self): #creamos la ventana emergente
+        VentanaEmpresa(self.root, self.empresa)
+    
     def crear_menu(self):
         menubar = ttk.Menu(self.root)
 
@@ -76,6 +82,11 @@ class TiendaApp:
         ttk.Button(self.frame_botones, text="📜 Listar Productos", command=self.abrir_ventana_listar).pack(fill=X, pady=5)
         ttk.Button(self.frame_botones, text="💰 Calcular Precio", command=self.abrir_ventana_precio).pack(fill=X, pady=5)
         ttk.Button(self.frame_botones, text="ℹ Acerca de", command=self.abrir_ventana_acerca).pack(fill=X, pady=5)
+        ttk.Button(
+            self.frame_botones, 
+            text="Ver Empresa", 
+            command=self.abrir_ventana_empresa
+        ).pack(fill="x", pady=5)
         
         # Botón Toggle
         self.btn_toggle_menu = ttk.Button(self.root, text="☰", command=self.toggle_menu)
