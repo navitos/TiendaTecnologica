@@ -11,8 +11,8 @@ class VentanaListarComputadores:
         self.ventana = Toplevel(self.root)
         self.ventana.title("Listar Computadores")
         self.ventana.minsize(width=800, height=300)
-        self.centrar_ventana(self.ventana)  # Centrar la ventana
         self.ventana.resizable(False, False)  # Hacerla no redimensionable
+        self.centrar_ventana(self.ventana)  # Centrar la ventana
 
         # Crear un frame para contener la tabla y las barras de desplazamiento
         self.frame_tabla = Frame(self.ventana)

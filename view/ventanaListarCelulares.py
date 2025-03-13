@@ -3,14 +3,14 @@ from tkinter import ttk
 
 from model.celular import Celular
 
-class VentanaListarComputadores:
+class VentanaListarCelulares:
     def __init__(self, root, controlador_tienda):
         self.root = root
         self.controlador_tienda = controlador_tienda
 
         self.ventana = Toplevel(self.root)
         self.ventana.title("Listar Celulares")
-        self.ventana.minsize(width=800, height=300)
+        self.ventana.minsize(width=900, height=300)
         self.ventana.resizable(False, False)  # Hacerla no redimensionable
         self.centrar_ventana(self.ventana)  # Centrar la ventana
 
@@ -24,7 +24,7 @@ class VentanaListarComputadores:
         self.tabla.pack(side=LEFT, fill=BOTH, expand=True)
 
         # Configurar las columnas
-        anchos_columnas = [150, 200, 80, 50, 100, 80, 50]
+        anchos_columnas = [150, 200, 80, 50, 100, 80, 80]
         for col, ancho in zip(columnas, anchos_columnas):
             self.tabla.heading(col, text=col)
             self.tabla.column(col, width=ancho, anchor="center")
@@ -39,7 +39,7 @@ class VentanaListarComputadores:
         self.frame_paginacion.pack(pady=10)
 
         self.pagina_actual = 1
-        self.elementos_por_pagina = 10  # Mostrar 5 elementos por página
+        self.elementos_por_pagina = 15  # Mostrar 5 elementos por página
 
         self.btn_anterior = Button(self.frame_paginacion, text="Anterior", command=self.pagina_anterior)
         self.btn_anterior.pack(side=LEFT, padx=5)
@@ -66,11 +66,11 @@ class VentanaListarComputadores:
         # Obtener los computadores de la página actual
         inicio = (self.pagina_actual - 1) * self.elementos_por_pagina
         fin = inicio + self.elementos_por_pagina
-        computadores_pagina = self.controlador_tienda.productos[inicio:fin]
+        celulares_pagina = self.controlador_tienda.productos[inicio:fin]
 
         # Agregar los computadores a la tabla
-        for producto in computadores_pagina:
-            if isinstance(producto, Celular):  # Verificar si es un computador
+        for producto in celulares_pagina:
+            if isinstance(producto, Celular): 
                 self.tabla.insert("", END, values=(
                     producto.get_nombre(),
                     producto.get_descripcion(),

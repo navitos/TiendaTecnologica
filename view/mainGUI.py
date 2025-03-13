@@ -5,6 +5,7 @@ from view.formularioCelular import FormularioCelular
 from view.formularioComputador import FormularioComputador
 from view.ventanaListar import VentanaListar
 from view.ventanaAcerca import VentanaAcerca
+from view.ventanaListarCelulares import VentanaListarCelulares
 from view.ventanaListarComputadores import VentanaListarComputadores
 from view.ventanaPrecioComputadores import VentanaPrecioComputadores
 from view.ventanaPrecioCelulares import VentanaPrecioCelulares
@@ -12,7 +13,6 @@ from services.controladorTienda import ControladorTienda
 from view.ventanaPrecio import VentanaPrecio
 from view.vetanaBuscarCelular import VentanaBuscarCelular
 from view.ventanaBuscarComputador import VentanaBuscarComputador
-
 #from tkinter import ttk
 from PIL import Image, ImageTk
 
@@ -45,6 +45,7 @@ class TiendaApp:
         menu_celular.add_command(label="Añadir Celular", command=self.abrir_ventana_celular)
         menu_celular.add_command(label="Consultar Celular", command=self.abrir_ventana_buscar_celular)
         menu_celular.add_command(label="Calcular Precio", command=self.abrir_ventana_precio_celulares)
+        menu_celular.add_command(label="Listar Celulares", command=self.abrir_ventana_listar_celulares)
         menubar.add_cascade(label="📱 Celulares", menu=menu_celular)
 
         # Menú Computadores
@@ -139,6 +140,10 @@ class TiendaApp:
 
     def abrir_ventana_listar_computadores(self):
         VentanaListarComputadores(self.root, self.servidor)
+
+    def abrir_ventana_listar_celulares(self):
+        VentanaListarCelulares(self.root, self.servidor)
+
     
     def generar_datos_prueba(self): #metodo para generar datos de prueba para la tienda
         self.servidor.agregar_computador("Dell XPS 13", "Computadora ultradelgada", 1199, 20, "Dell", "Intel Iris Xe", 16)
