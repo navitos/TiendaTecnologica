@@ -1,7 +1,5 @@
 from tkinter import Toplevel, Frame, BOTH, LEFT, RIGHT, Y, END
 from tkinter import ttk
-from services.Observable import Observable
-from services.controladorTienda import ControladorTienda
 
 class VentanaListar:
     def __init__(self, root, controlador_tienda):

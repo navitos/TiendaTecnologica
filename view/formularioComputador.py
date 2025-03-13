@@ -69,6 +69,7 @@ class FormularioComputador:
             # Mostrar mensaje de éxito
             messagebox.showinfo("Éxito", "Computador agregado correctamente")
             
+            self.servicio.observable.notificar_observadores_computador("notificacion")
             self.servicio.observable.notificar_observadores("notificacion")
         
         except ValueError as e:

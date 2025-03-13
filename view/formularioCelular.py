@@ -69,6 +69,7 @@ class FormularioCelular:
             # Mostrar mensaje de éxito
             messagebox.showinfo("Éxito", "Celular agregado correctamente")
             
+            self.servicio.observable.notificar_observadores_celular("notificacion")
             self.servicio.observable.notificar_observadores("notificacion")
         
         except ValueError as e:

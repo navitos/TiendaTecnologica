@@ -2,8 +2,6 @@ from tkinter import Toplevel, Frame, Button, BOTH, LEFT, RIGHT, Y, X, END
 from tkinter import ttk
 
 from model.computador import Computador
-from services.Observable import Observable
-from services.controladorTienda import ControladorTienda
 
 class VentanaListarComputadores:
     def __init__(self, root, controlador_tienda):
